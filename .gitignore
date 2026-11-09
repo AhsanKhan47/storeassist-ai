@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Secrets
+.dev.vars
+.env*
+
+# Build output
+.next/
+out/
+dist/
+.wrangler/
+*.tsbuildinfo
+next-env.d.ts
+
+# Local tool settings
+.claude/settings.local.json
+
+# OS and logs
+.DS_Store
+Thumbs.db
+*.log
