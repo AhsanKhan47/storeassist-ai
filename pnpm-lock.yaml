@@ -245,7 +245,14 @@ importers:
         specifier: ~5.9.3
         version: 5.9.3
 
-  scripts: {}
+  scripts:
+    devDependencies:
+      '@types/node':
+        specifier: ^26.6.6
+        version: 26.6.6
+      typescript:
+        specifier: ~5.9.3
+        version: 5.9.3
 
 packages:
 
@@ -4512,6 +4519,7 @@ snapshots:
       '@img/sharp-win32-ia32': 0.35.5
       '@img/sharp-win32-x64': 0.35.5
       '@types/node': 26.6.6
+    optional: true
 
   shebang-command@2.0.0:
     dependencies:

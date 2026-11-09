@@ -4,7 +4,7 @@
 
 ## The app
 
-RAG support chatbot for a fictional Karachi clothing store, **Kiran Threads**. It answers customer
+RAG support chatbot for a fictional US clothing store, **Tallow & Pine**. It answers customer
 questions only from the store's policy documents (`docs/*.md`), cites the source for each answer, and
 replies "not in our policies, contact us" instead of guessing. It is a portfolio demo for Ahsan's
 Fiverr/Upwork AI-integration services. All content is sample data and the UI says so.
@@ -28,6 +28,7 @@ Everything runs on free tiers: **no credit card, no subscriptions, ever.**
 | Lint | `pnpm lint` |
 | Typecheck | `pnpm typecheck` |
 | Format | `pnpm format` |
+| Validate docs + eval questions | `pnpm check:content` |
 | Tests (from Phase 6) | `pnpm test` |
 | DB migrate / ingest / debug search (from Phase 3) | `pnpm db:migrate` / `pnpm ingest` / `pnpm search "<q>"` |
 | Eval, 15 questions (from Phase 6) | `pnpm eval` |

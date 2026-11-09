@@ -5,7 +5,7 @@ things are the way they are, so a new session doesn't re-argue them.
 
 ## Who and why
 
-- **Ahsan Raza Khan**, full stack web developer in Karachi (React, Node.js, Python).
+- **Ahsan Raza Khan**, full stack web developer (React, Node.js, Python).
 - This repo is a portfolio demo of AI integration for web apps.
 
 ## Decisions and the reasons behind them
@@ -13,7 +13,8 @@ things are the way they are, so a new session doesn't re-argue them.
 | Decision | Reason |
 | --- | --- |
 | Demo = support chatbot for a small online store | Concrete and easy for clients to understand |
-| Fictional store (Kiran Threads), not a real brand | Using a real brand's pages risks copyright/terms problems and looks like impersonation. Fake but realistic content is safest; label it as sample data |
+| Fictional store (Tallow & Pine), not a real brand | Using a real brand's pages risks copyright/terms problems and looks like impersonation. Fake but realistic content is safest; label it as sample data |
+| Store is US-based (Portland, Oregon), USD, English | The target clients are US and European store owners, so the demo store, currency and policies are set in the US (decided 2026-11-09) |
 | Zero cost, no card anywhere | Ahsan's explicit requirement for a demo project |
 | Groq for chat, Gemini for embeddings | Both have no-card free tiers; Groq is fast and OpenAI-compatible; Gemini embeddings are free |
 | Fallback chain Groq → Gemini → Cerebras (optional) | Free tiers rate-limit; a fallback avoids visible failures during a client demo |

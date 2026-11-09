@@ -38,18 +38,18 @@ Ahsan does: copy `.dev.vars.example` to `.dev.vars` and paste keys.
 
 ## Phase 2 — Knowledge base
 
-**Goal:** realistic sample content for Kiran Threads.
+**Goal:** realistic sample content for Tallow & Pine.
 
 Build:
 - 15 Markdown files in `docs/` (About, Shipping, International shipping, Returns, Refunds, Payments,
-  Order tracking, Size guide, Fabric care, Custom stitching, Damaged items, Discounts, Privacy,
+  Order tracking, Size guide, Fabric care, Alterations, Damaged items, Discounts, Privacy,
   Terms of sale, FAQ), each with frontmatter `title` and `slug`, 300–800 words, clear headings
-- Edge cases per `DESIGN.md` (sale items exchange-only, COD refunds by bank transfer, 48-hour damage
-  reporting, Eid delays, FAQ overlap)
+- Edge cases per `DESIGN.md` (sale items exchange-only, gift card refunds as store credit, 48-hour damage
+  reporting, holiday-peak delays, FAQ overlap)
 - `docs/README.md` stating content is fictional
 - `eval/questions.json`: 15 questions with expected answers and expected source slugs
 
-Ahsan does: skim and adjust anything unrealistic for a Pakistani store.
+Ahsan does: skim and adjust anything that would not sound right to a US or European client.
 
 **Done when:** Ahsan approves the content and test questions.
 
@@ -159,7 +159,7 @@ storeassist-ai/
 │     └─ .dev.vars          # keys (git-ignored)
 ├─ packages/shared/         # Zod schemas + types
 ├─ scripts/                 # ingest.ts, search.ts, eval.ts
-├─ docs/                    # 15 Kiran Threads documents
+├─ docs/                    # 15 Tallow & Pine documents
 ├─ eval/                    # questions.json + report.md
 ├─ .github/workflows/       # optional ingest-on-push
 └─ README.md

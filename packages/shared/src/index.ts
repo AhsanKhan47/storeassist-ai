@@ -1,5 +1,5 @@
 export * from "./chat";
 
-export const STORE_NAME = "Kiran Threads";
+export const STORE_NAME = "Tallow & Pine";
 
 export type HealthResponse = { ok: true };
