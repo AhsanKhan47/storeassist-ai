@@ -1,6 +1,6 @@
 # STATUS
 
-Last updated: 2026-11-11 (Phase 5 complete)
+Last updated: 2026-11-11 (Phase 6 complete)
 
 ## Done
 
@@ -40,16 +40,21 @@ Last updated: 2026-11-11 (Phase 5 complete)
   - "Under the hood" panel with real API facts (match vs 0.67 cutoff, model, saved answer, time,
     session counts); bottom sheet on phones
   - Checked in headless Edge with screenshots: 12/12 behavior checks pass (`plans/phase-5.md`)
+- Phase 6 — Quality and hardening
+  - `pnpm eval` → `eval/report.md`: **15/15** (string-check scoring, no AI judge) and 5/5 extra attack
+    checks; first run found Q10 omitting the 48-hour hem remedy, fixed with prompt rule 3
+  - Cutoff stays 0.67 (margin +0.039 / −0.032; probe set 10/10); `pnpm test`: 42 Vitest unit tests
+  - Security pass: no key in git history, CORS, input limits, rate limit, private logs, no vulnerable
+    dependencies (`plans/phase-6.md`)
 
 ## In progress
 
-- Nothing in progress. Phase 6 (quality and evals) needs a plan in `plans/phase-6.md` and Ahsan's
-  approval.
+- Nothing in progress. Phase 7 (deployment) needs a plan in `plans/phase-7.md` and Ahsan's approval.
 
 ## Next
 
-- Ahsan pushes: `git push origin main phase-4 phase-5` (both committed and tagged locally).
-- Phase 6: quality and evals (`pnpm eval`, tune the 0.67 cutoff, Vitest, security pass).
+- Ahsan pushes: `git push origin main phase-4 phase-5 phase-6` (committed and tagged locally).
+- Phase 7: deployment (Worker + Pages, secrets, live URLs, security headers, live `pnpm eval`).
 - Local dev: run a single `pnpm dev`. Two `wrangler dev` copies in this folder share `.wrangler` state
   and both freeze on port 8787 (happened on 2026-11-11).
 
@@ -67,8 +72,9 @@ Last updated: 2026-11-11 (Phase 5 complete)
   ~5–9 s to start). The answer cache absorbs repeated demo questions.
 - The 429 `Retry-After` comes from Upstash's window reset and can under-state the wait slightly
   (sliding window). Fine for now; the UI in Phase 5 just shows "try again in a moment".
-- Ahsan's keys were briefly pasted into the tracked `.dev.vars.example` (moved to `.dev.vars` before any
-  commit; nothing pushed). Recommend rotating Neon, Groq, Gemini and Upstash keys.
+- Keys: Ahsan's keys were briefly pasted into the tracked `.dev.vars.example` (moved to `.dev.vars` before
+  any commit; nothing pushed; Phase 6 history scan found no key in any commit). **Decision 2026-11-11:
+  Ahsan chose not to rotate them.** Closed; do not raise again unless a key is actually exposed.
 - Phase 6 tuning risks: the gap between answerable (≥0.709) and not-covered (≤0.638) top scores is only
   ~0.07, so the cutoff needs re-checking with more questions; the FAQ repeats some delivery times and
   the hemming price, so eval scoring may need to accept `faq` as an alternative source.
@@ -94,6 +100,6 @@ Last updated: 2026-11-11 (Phase 5 complete)
 | 3 Data + ingestion | Done | `phase-3` | 15 docs, 133 chunks in Neon |
 | 4 Chat API | Done | `phase-4` | Groq model now gpt-oss-120b |
 | 5 Chat UI | Done | `phase-5` | Premium Apple-style UI |
-| 6 Quality + evals | Not started | | |
+| 6 Quality + evals | Done | `phase-6` | 15/15 eval, 42 unit tests |
 | 7 Deployment | Not started | | |
 | 8 Portfolio + selling | Not started | | |

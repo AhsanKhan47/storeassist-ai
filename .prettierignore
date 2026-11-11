@@ -5,5 +5,6 @@ dist
 .wrangler
 pnpm-lock.yaml
 apps/api/drizzle
+eval/report.md
 planning
 CLAUDE.md

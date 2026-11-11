@@ -17,13 +17,16 @@
     "db:migrate": "node --env-file-if-exists=apps/api/.dev.vars scripts/migrate.ts",
     "ingest": "node --env-file-if-exists=apps/api/.dev.vars scripts/ingest.ts",
     "search": "node --env-file-if-exists=apps/api/.dev.vars scripts/search.ts",
-    "chat": "node scripts/chat.ts"
+    "chat": "node scripts/chat.ts",
+    "eval": "node --env-file-if-exists=apps/api/.dev.vars scripts/eval.ts",
+    "test": "vitest run"
   },
   "devDependencies": {
     "eslint": "^10.14.0",
     "eslint-config-next": "^16.4.5",
     "prettier": "^3.9.10",
     "typescript": "~5.9.3",
-    "typescript-eslint": "^8.72.1"
+    "typescript-eslint": "^8.72.1",
+    "vitest": "~5.0.5"
   }
 }

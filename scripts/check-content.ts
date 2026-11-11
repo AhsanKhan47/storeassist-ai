@@ -76,6 +76,8 @@ interface Question {
   question?: string;
   expectedAnswer?: string;
   expectedSlugs?: string[];
+  altSlugs?: string[];
+  mustInclude?: string[];
   expectFallback?: boolean;
 }
 
@@ -113,6 +115,25 @@ for (const q of questions) {
   }
   if ((q.type === "direct" || q.type === "two-document") && q.expectFallback !== false) {
     fail(`${label}: answerable questions need expectFallback false`);
+  }
+
+  // Fields used by `pnpm eval` (scripts/lib/eval-score.ts).
+  const answerable = q.type === "direct" || q.type === "two-document";
+  const facts = q.mustInclude;
+  if (answerable) {
+    if (!Array.isArray(facts) || facts.length === 0) {
+      fail(`${label}: answerable questions need a non-empty mustInclude list`);
+    } else if (
+      facts.some((f) => typeof f !== "string" || f.split("|").some((alt) => !alt.trim()))
+    ) {
+      fail(`${label}: mustInclude entries must be non-empty strings ("a|b" for alternatives)`);
+    }
+  } else if (facts !== undefined) {
+    fail(`${label}: mustInclude is only used for direct and two-document questions`);
+  }
+  if (q.altSlugs !== undefined) {
+    if (q.type !== "direct") fail(`${label}: altSlugs is only used for direct questions`);
+    for (const s of q.altSlugs) if (!slugs.has(s)) fail(`${label}: unknown alt slug "${s}"`);
   }
 }
 for (const [type, n] of Object.entries(EXPECTED_TYPES)) {

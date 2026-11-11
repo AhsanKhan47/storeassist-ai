@@ -30,11 +30,11 @@ Everything runs on free tiers: **no credit card, no subscriptions, ever.**
 | Typecheck | `pnpm typecheck` |
 | Format | `pnpm format` |
 | Validate docs + eval questions | `pnpm check:content` |
-| Tests (from Phase 6) | `pnpm test` |
+| Unit tests (Vitest) | `pnpm test` |
 | DB migrate / ingest / debug search (from Phase 3) | `pnpm db:migrate` / `pnpm ingest` / `pnpm run search "<q>"` (not `pnpm search`: that is pnpm's built-in registry search) |
 | Run the API only | `pnpm --filter @storeassist/api dev` (:8787) |
 | Ask the local API a question (from Phase 4) | `pnpm run chat "<q>"` (`--repeat N`, `--url URL`) |
-| Eval, 15 questions (from Phase 6) | `pnpm eval` |
+| Eval, 15 questions → `eval/report.md` | `pnpm eval` (needs `pnpm dev`; `--url`, `--pace ms`, `--only 1,9`, `--keep-cache`, `--skip-extra`) |
 | Deploy API (from Phase 7) | `pnpm deploy:api` |
 
 ## Conventions

@@ -1,0 +1,12 @@
+[
+  { "question": "What is your return window?", "expect": "answer" },
+  { "question": "Do you deliver to Canada?", "expect": "answer" },
+  { "question": "How should I wash dark denim?", "expect": "answer" },
+  { "question": "How much does hemming cost?", "expect": "answer" },
+  { "question": "Can I use two discount codes on one order?", "expect": "answer" },
+  { "question": "Do you offer personal styling appointments?", "expect": "fallback" },
+  { "question": "Do you have a mobile app?", "expect": "fallback" },
+  { "question": "What is your company's stock price?", "expect": "fallback" },
+  { "question": "Can I bring my dog to your shop?", "expect": "fallback" },
+  { "question": "Do you sell men's suits?", "expect": "fallback" }
+]

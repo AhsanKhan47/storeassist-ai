@@ -5,6 +5,8 @@
     "question": "How many days do I have to return an item?",
     "expectedAnswer": "14 days from delivery; item unworn, unwashed, tags attached.",
     "expectedSlugs": ["returns-exchanges"],
+    "altSlugs": ["faq"],
+    "mustInclude": ["14"],
     "expectFallback": false
   },
   {
@@ -13,6 +15,7 @@
     "question": "How long does delivery to Alaska take?",
     "expectedAnswer": "7-10 business days for Alaska, Hawaii and PO boxes.",
     "expectedSlugs": ["shipping-us"],
+    "mustInclude": ["7", "10"],
     "expectFallback": false
   },
   {
@@ -21,6 +24,8 @@
     "question": "Can I pay in installments?",
     "expectedAnswer": "Yes, pay-in-4 on orders up to $500; first payment at checkout.",
     "expectedSlugs": ["payment-methods"],
+    "altSlugs": ["faq"],
+    "mustInclude": ["500"],
     "expectFallback": false
   },
   {
@@ -29,6 +34,8 @@
     "question": "How much do I need to spend for free shipping?",
     "expectedAnswer": "$75 or more (after discounts, before tax); otherwise $6.95 flat.",
     "expectedSlugs": ["shipping-us"],
+    "altSlugs": ["faq"],
+    "mustInclude": ["75"],
     "expectFallback": false
   },
   {
@@ -37,6 +44,8 @@
     "question": "My dress arrived damaged. What should I do?",
     "expectedAnswer": "Report within 48 hours of delivery with order number and photos; replacement or full refund.",
     "expectedSlugs": ["damaged-or-wrong-item"],
+    "altSlugs": ["faq"],
+    "mustInclude": ["48"],
     "expectFallback": false
   },
   {
@@ -45,6 +54,8 @@
     "question": "Will the color run when I wash new dark jeans?",
     "expectedAnswer": "Dark denim can bleed dye on first wash; wash alone in cold water. Normal, not a fault.",
     "expectedSlugs": ["fabric-care"],
+    "altSlugs": ["faq"],
+    "mustInclude": ["cold"],
     "expectFallback": false
   },
   {
@@ -53,6 +64,8 @@
     "question": "Do you ship to the UK, and who pays customs?",
     "expectedAnswer": "Yes, 7-14 business days, $29 flat; the buyer pays customs duties and import taxes.",
     "expectedSlugs": ["international-shipping"],
+    "altSlugs": ["faq"],
+    "mustInclude": ["29", "customs|duties|import"],
     "expectFallback": false
   },
   {
@@ -61,6 +74,8 @@
     "question": "What are your customer service hours?",
     "expectedAnswer": "Monday to Friday, 9am-6pm Pacific.",
     "expectedSlugs": ["about-us"],
+    "altSlugs": ["faq"],
+    "mustInclude": ["9", "6", "pacific"],
     "expectFallback": false
   },
   {
@@ -69,14 +84,16 @@
     "question": "Can I get my money back on a sale item I bought with a gift card?",
     "expectedAnswer": "No: sale items are exchange only (returns-exchanges). If an exchange is impossible, or the order was paid by gift card, the value comes back as store credit, never to a card (refunds).",
     "expectedSlugs": ["returns-exchanges", "refunds"],
+    "mustInclude": ["store credit"],
     "expectFallback": false
   },
   {
     "id": 10,
     "type": "two-document",
     "question": "If hemmed pants don't fit, can I return them?",
-    "expectedAnswer": "No: altered items cannot be returned or exchanged (returns-exchanges). Hemming is $25 per item (alterations).",
+    "expectedAnswer": "No: altered items cannot be returned or exchanged (returns-exchanges). But if the hem does not match the length ordered, contact the store within 48 hours with photos and a measurement (alterations).",
     "expectedSlugs": ["alterations", "returns-exchanges"],
+    "mustInclude": ["alter|hem", "not|cannot|can't"],
     "expectFallback": false
   },
   {
@@ -85,6 +102,7 @@
     "question": "When will my order arrive if I buy in mid-December?",
     "expectedAnswer": "Normal estimate by region (shipping-us) plus 3-5 business days for the Nov 20-Dec 24 holiday peak (order-tracking).",
     "expectedSlugs": ["order-tracking", "shipping-us"],
+    "mustInclude": ["3", "5"],
     "expectFallback": false
   },
   {
