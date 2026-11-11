@@ -1,6 +1,6 @@
 # STATUS
 
-Last updated: 2026-11-11 (Phase 4 complete)
+Last updated: 2026-11-11 (Phase 5 complete)
 
 ## Done
 
@@ -32,22 +32,35 @@ Last updated: 2026-11-11 (Phase 4 complete)
     `gemini-3.5-flash-lite` on any Groq error before the first token
   - Upstash down → chats refused with 503 `busy` (Ahsan's decision)
   - `pnpm run chat "<q>"` test command; all acceptance checks pass locally (`plans/phase-4.md`)
+- Phase 5 — Chat UI
+  - Premium Apple-style UI (Ahsan's direction): ambient background, glass layers, Geist/SF type,
+    landing cards with icon tiles, spring motion, smooth streamed text; light and dark mode
+  - Streaming answers with citation badges and source chips (cited sources only) that open the excerpt;
+    fallback, busy, rate-limit, network and 20 s timeout states with **Try again**; follow-up history
+  - "Under the hood" panel with real API facts (match vs 0.67 cutoff, model, saved answer, time,
+    session counts); bottom sheet on phones
+  - Checked in headless Edge with screenshots: 12/12 behavior checks pass (`plans/phase-5.md`)
 
 ## In progress
 
-- Nothing in progress. Phase 5 (chat UI) needs a plan in `plans/phase-5.md` and Ahsan's approval.
+- Nothing in progress. Phase 6 (quality and evals) needs a plan in `plans/phase-6.md` and Ahsan's
+  approval.
 
 ## Next
 
-- Ahsan pushes: `git push origin main phase-4`.
-- Phase 5, the chat UI (reference: `preview.html`). It consumes the SSE contract in
-  `packages/shared/src/chat.ts`.
+- Ahsan pushes: `git push origin main phase-4 phase-5` (both committed and tagged locally).
+- Phase 6: quality and evals (`pnpm eval`, tune the 0.67 cutoff, Vitest, security pass).
+- Local dev: run a single `pnpm dev`. Two `wrangler dev` copies in this folder share `.wrangler` state
+  and both freeze on port 8787 (happened on 2026-11-11).
 
 ## Open questions / blockers
 
 - GitHub remote: `git@github-personal:AhsanKhan47/storeassist-ai.git` (SSH alias for his personal
   account). Ahsan normally pushes himself; on 2026-11-11 he asked Claude to push Phase 3 and the tags.
 - ESLint 10 works, but three lint plugins do not list it as supported yet. Pin ESLint 9 if lint breaks.
+- Phase 7: the static web build bakes in `NEXT_PUBLIC_API_URL` at build time, so Cloudflare Pages needs
+  it set to the live Worker URL (otherwise the site calls `localhost:8787`), and `ALLOWED_ORIGIN` on
+  the Worker must be the live site URL.
 - Cerebras key skipped; fallback chain is Groq → Gemini for now. The Cerebras model name in
   `config.ts` (`gpt-oss-120b`) is untested until a key is added.
 - Groq's 8,000 tokens/minute fits roughly 4–5 answers a minute; beyond that, Gemini answers (slower,
@@ -80,7 +93,7 @@ Last updated: 2026-11-11 (Phase 4 complete)
 | 2 Knowledge base | Done | `phase-2` | |
 | 3 Data + ingestion | Done | `phase-3` | 15 docs, 133 chunks in Neon |
 | 4 Chat API | Done | `phase-4` | Groq model now gpt-oss-120b |
-| 5 Chat UI | Not started | | Reference: `preview.html` |
+| 5 Chat UI | Done | `phase-5` | Premium Apple-style UI |
 | 6 Quality + evals | Not started | | |
 | 7 Deployment | Not started | | |
 | 8 Portfolio + selling | Not started | | |

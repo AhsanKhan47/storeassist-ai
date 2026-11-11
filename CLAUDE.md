@@ -44,6 +44,8 @@ Everything runs on free tiers: **no credit card, no subscriptions, ever.**
 - Provider clients (LLM, embeddings) sit behind one module each so they can be swapped by env vars.
 - Env var names are fixed: `DATABASE_URL`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`,
   `GROQ_API_KEY`, `GEMINI_API_KEY`, `CEREBRAS_API_KEY` (optional), `ALLOWED_ORIGIN`.
+  Optional overrides: `GROQ_CHAT_MODEL`, `GEMINI_CHAT_MODEL`. Web build-time variable (not a secret):
+  `NEXT_PUBLIC_API_URL` (defaults to `http://localhost:8787`).
 - Secrets: local `apps/api/.dev.vars` (git-ignored), production `wrangler secret put`. Never ask Ahsan
   to paste keys in chat; never commit `.dev.vars` / `.env*`.
 - Conventional commits. One commit + tag `phase-N` per phase.
