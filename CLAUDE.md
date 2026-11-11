@@ -30,7 +30,7 @@ Everything runs on free tiers: **no credit card, no subscriptions, ever.**
 | Format | `pnpm format` |
 | Validate docs + eval questions | `pnpm check:content` |
 | Tests (from Phase 6) | `pnpm test` |
-| DB migrate / ingest / debug search (from Phase 3) | `pnpm db:migrate` / `pnpm ingest` / `pnpm search "<q>"` |
+| DB migrate / ingest / debug search (from Phase 3) | `pnpm db:migrate` / `pnpm ingest` / `pnpm run search "<q>"` (not `pnpm search`: that is pnpm's built-in registry search) |
 | Eval, 15 questions (from Phase 6) | `pnpm eval` |
 | Deploy API (from Phase 7) | `pnpm deploy:api` |
 

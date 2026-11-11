@@ -12,7 +12,11 @@
     "lint": "eslint .",
     "typecheck": "pnpm -r --if-present run typecheck",
     "format": "prettier --write .",
-    "check:content": "node scripts/check-content.ts"
+    "check:content": "node scripts/check-content.ts",
+    "db:generate": "pnpm --filter @storeassist/api exec drizzle-kit generate",
+    "db:migrate": "node --env-file-if-exists=apps/api/.dev.vars scripts/migrate.ts",
+    "ingest": "node --env-file-if-exists=apps/api/.dev.vars scripts/ingest.ts",
+    "search": "node --env-file-if-exists=apps/api/.dev.vars scripts/search.ts"
   },
   "devDependencies": {
     "eslint": "^10.14.0",

@@ -1,6 +1,6 @@
 # STATUS
 
-Last updated: 2026-11-09 (Phase 2 complete, before Phase 3)
+Last updated: 2026-11-11 (Phase 3 complete)
 
 ## Done
 
@@ -20,26 +20,31 @@ Last updated: 2026-11-09 (Phase 2 complete, before Phase 3)
     `pnpm typecheck` now also covers `scripts/`
   - `planning/preview.html` and the placeholder page moved to the new store
 
+- Phase 3 — Data layer and ingestion
+  - Drizzle schema (`documents`, `chunks` with `vector(768)` + HNSW), `pnpm db:migrate`
+  - `pnpm ingest`: 15 docs → 133 chunks, Gemini embeddings, skip-by-hash, per-document atomic replace
+  - `pnpm run search`: all 11 answerable test questions rank the right document first; scores and the
+    proposed cutoff (~0.67) are in `plans/phase-3.md`
+
 ## In progress
 
-- Nothing yet.
+- **Phase 4 — Chat API.** Plan goes in `plans/phase-4.md`; waits for Ahsan's approval before code.
 
 ## Next
 
-- Ahsan pushes Phase 2: `git push origin main; git push origin phase-2`
-- **Phase 3 — Data layer and ingestion** (see `planning/PLAN.md`).
-  First step: write `planning/plans/phase-3.md` and get Ahsan's approval. Ingestion must skip
-  `docs/README.md`, strip the frontmatter quotes from titles, and chunk by `##` heading.
+- After Phase 4: Phase 5, the chat UI (reference: `preview.html`).
 
 ## Open questions / blockers
 
 - GitHub remote: `git@github-personal:AhsanKhan47/storeassist-ai.git` (SSH alias for his personal
-  account). Ahsan does all pushes himself.
+  account). Ahsan normally pushes himself; on 2026-11-11 he asked Claude to push Phase 3 and the tags.
 - ESLint 10 works, but three lint plugins do not list it as supported yet. Pin ESLint 9 if lint breaks.
 - Cerebras key skipped; fallback chain is Groq → Gemini for now.
-- Phase 6 tuning risks: "Do you sell shoes?" may match the About page's "What we sell" section above the
-  cutoff; "gift wrapping" sits close to the gift-card text; the FAQ repeats some delivery times and the
-  hemming price, so eval scoring may need to accept `faq` as an alternative source.
+- Ahsan's keys were briefly pasted into the tracked `.dev.vars.example` (moved to `.dev.vars` before any
+  commit; nothing pushed). Recommend rotating Neon, Groq, Gemini and Upstash keys.
+- Phase 6 tuning risks: the gap between answerable (≥0.709) and not-covered (≤0.638) top scores is only
+  ~0.07, so the cutoff needs re-checking with more questions; the FAQ repeats some delivery times and
+  the hemming price, so eval scoring may need to accept `faq` as an alternative source.
 - The Phase 1 commit on GitHub still contains the old Karachi-store wording in git history. Leaving it
   unless Ahsan asks for a history rewrite.
 
@@ -54,10 +59,10 @@ Last updated: 2026-11-09 (Phase 2 complete, before Phase 3)
 | Phase | Status | Tag | Notes |
 | --- | --- | --- | --- |
 | 0 Planning + setup | Done | — | |
-| 1 Foundation | Done | `phase-1` | Ahsan pushes |
-| 2 Knowledge base | Done | `phase-2` | Ahsan pushes |
-| 3 Data + ingestion | Next | | |
-| 4 Chat API | Not started | | API spec goes in `plans/phase-4.md` |
+| 1 Foundation | Done | `phase-1` | |
+| 2 Knowledge base | Done | `phase-2` | |
+| 3 Data + ingestion | Done | `phase-3` | 15 docs, 133 chunks in Neon |
+| 4 Chat API | Planning | | `plans/phase-4.md` |
 | 5 Chat UI | Not started | | Reference: `preview.html` |
 | 6 Quality + evals | Not started | | |
 | 7 Deployment | Not started | | |

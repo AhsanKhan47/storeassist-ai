@@ -63,11 +63,11 @@ Build:
 - `pnpm db:migrate`
 - `pnpm ingest`: split by heading then ~500-token chunks with ~50 overlap; Gemini embeddings in batches
   with retry/backoff; skip unchanged docs by content hash; replace a changed doc's chunks in one transaction
-- `pnpm search "question"`: prints top-5 chunks with scores
+- `pnpm run search "question"`: prints top-5 chunks with scores
 
 Ahsan does: run `pnpm db:migrate` and `pnpm ingest` once.
 
-**Done when:** Neon shows 15 documents and chunks; `pnpm search "can I return a sale item"` ranks the
+**Done when:** Neon shows 15 documents and chunks; `pnpm run search "can I return a sale item"` ranks the
 Returns page first.
 
 ## Phase 4 — Chat API

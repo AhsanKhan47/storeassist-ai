@@ -1,6 +1,6 @@
 # Setup status (accounts and tools)
 
-All free, no card. Status as of 2026-11-09.
+All free, no card. Status as of 2026-11-11.
 
 | Item | Status | Notes |
 | --- | --- | --- |
@@ -8,10 +8,10 @@ All free, no card. Status as of 2026-11-09.
 | Project folder `C:\Users\ahsan\Desktop\Personal\storeassist-ai` | Done | |
 | GitHub repo `storeassist-ai` (public, empty) | Done | Remote uses the SSH alias: `git@github-personal:AhsanKhan47/storeassist-ai.git`; Ahsan pushes himself |
 | Cloudflare account + `npx wrangler login` | Done | Subdomain `ahsankhan47.workers.dev` |
-| Neon project + `create extension if not exists vector;` | Done | Use the **pooled** connection string as `DATABASE_URL` |
+| Neon project + `create extension if not exists vector;` | Done | Use the **pooled** connection string as `DATABASE_URL`. Tables created by `pnpm db:migrate`; 15 docs / 133 chunks loaded by `pnpm ingest` (2026-11-11) |
 | Upstash Redis `storeassist-cache` | Done | REST URL + token |
 | Groq API key | Done | `GROQ_API_KEY` |
-| Gemini API key (AI Studio) | Done | `GEMINI_API_KEY`; free-tier data may be used by Google |
+| Gemini API key (AI Studio) | Done | `GEMINI_API_KEY`; free-tier data may be used by Google. `gemini-embedding-001` at 768 dims confirmed working |
 | Cerebras API key | Skipped | Optional fallback |
 
 ## Where keys go

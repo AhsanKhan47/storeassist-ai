@@ -4,5 +4,6 @@ out
 dist
 .wrangler
 pnpm-lock.yaml
+apps/api/drizzle
 planning
 CLAUDE.md
