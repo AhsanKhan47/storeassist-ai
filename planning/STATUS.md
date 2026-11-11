@@ -1,6 +1,6 @@
 # STATUS
 
-Last updated: 2026-11-11 (Phase 3 complete)
+Last updated: 2026-11-11 (Phase 4 complete)
 
 ## Done
 
@@ -25,21 +25,35 @@ Last updated: 2026-11-11 (Phase 3 complete)
   - `pnpm ingest`: 15 docs → 133 chunks, Gemini embeddings, skip-by-hash, per-document atomic replace
   - `pnpm run search`: all 11 answerable test questions rank the right document first; scores and the
     proposed cutoff (~0.67) are in `plans/phase-3.md`
+- Phase 4 — Chat API
+  - `POST /api/chat`: validate → per-IP limit (10/min) → cache → embed + search → 0.67 cutoff →
+    streamed, cited answer (SSE: `meta`, `delta`, `done` / `error`); typed contract in `packages/shared`
+  - Groq `openai/gpt-oss-120b` (Llama 3.3 70B was retired), falling back to Gemini
+    `gemini-3.5-flash-lite` on any Groq error before the first token
+  - Upstash down → chats refused with 503 `busy` (Ahsan's decision)
+  - `pnpm run chat "<q>"` test command; all acceptance checks pass locally (`plans/phase-4.md`)
 
 ## In progress
 
-- **Phase 4 — Chat API.** Plan goes in `plans/phase-4.md`; waits for Ahsan's approval before code.
+- Nothing in progress. Phase 5 (chat UI) needs a plan in `plans/phase-5.md` and Ahsan's approval.
 
 ## Next
 
-- After Phase 4: Phase 5, the chat UI (reference: `preview.html`).
+- Ahsan pushes: `git push origin main phase-4`.
+- Phase 5, the chat UI (reference: `preview.html`). It consumes the SSE contract in
+  `packages/shared/src/chat.ts`.
 
 ## Open questions / blockers
 
 - GitHub remote: `git@github-personal:AhsanKhan47/storeassist-ai.git` (SSH alias for his personal
   account). Ahsan normally pushes himself; on 2026-11-11 he asked Claude to push Phase 3 and the tags.
 - ESLint 10 works, but three lint plugins do not list it as supported yet. Pin ESLint 9 if lint breaks.
-- Cerebras key skipped; fallback chain is Groq → Gemini for now.
+- Cerebras key skipped; fallback chain is Groq → Gemini for now. The Cerebras model name in
+  `config.ts` (`gpt-oss-120b`) is untested until a key is added.
+- Groq's 8,000 tokens/minute fits roughly 4–5 answers a minute; beyond that, Gemini answers (slower,
+  ~5–9 s to start). The answer cache absorbs repeated demo questions.
+- The 429 `Retry-After` comes from Upstash's window reset and can under-state the wait slightly
+  (sliding window). Fine for now; the UI in Phase 5 just shows "try again in a moment".
 - Ahsan's keys were briefly pasted into the tracked `.dev.vars.example` (moved to `.dev.vars` before any
   commit; nothing pushed). Recommend rotating Neon, Groq, Gemini and Upstash keys.
 - Phase 6 tuning risks: the gap between answerable (≥0.709) and not-covered (≤0.638) top scores is only
@@ -53,6 +67,9 @@ Last updated: 2026-11-11 (Phase 3 complete)
 - Python version of the ingestion script, to show Python skills to clients
 - WhatsApp integration, multi-language answers, live order lookup, admin panel (paid add-ons)
 - Neon MCP / Playwright for Claude Code once Phases 3 and 5 start
+- `.gitattributes` with `eol=lf`, so a Windows checkout with autocrlf does not fail `prettier --check`
+- Better follow-up questions: rewrite "what about Hawaii?" into a standalone question before searching
+- Clear the answer cache automatically when `pnpm ingest` changes a document
 
 ## Phase log
 
@@ -62,7 +79,7 @@ Last updated: 2026-11-11 (Phase 3 complete)
 | 1 Foundation | Done | `phase-1` | |
 | 2 Knowledge base | Done | `phase-2` | |
 | 3 Data + ingestion | Done | `phase-3` | 15 docs, 133 chunks in Neon |
-| 4 Chat API | Planning | | `plans/phase-4.md` |
+| 4 Chat API | Done | `phase-4` | Groq model now gpt-oss-120b |
 | 5 Chat UI | Not started | | Reference: `preview.html` |
 | 6 Quality + evals | Not started | | |
 | 7 Deployment | Not started | | |

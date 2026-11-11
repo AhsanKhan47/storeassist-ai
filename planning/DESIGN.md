@@ -84,7 +84,7 @@ invented answers impossible on that path.
 | Validation | Zod, shared types | Rejects bad input before it costs an API call | Open source |
 | Cache + rate limit | Upstash Redis + `@upstash/ratelimit` | Repeat questions served from cache | 500K commands/month, 256 MB |
 | Vector DB | Neon Postgres + pgvector, `@neondatabase/serverless` + Drizzle | HTTP driver built for Workers | 0.5 CU, 500 MB, sleeps after 5 min idle |
-| Chat model | Groq Llama 3.3 70B, fallback Gemini / Cerebras | Next provider answers on 429 | ~30 req/min on Groq |
+| Chat model | Groq `openai/gpt-oss-120b`, fallback Gemini `gemini-3.5-flash-lite` / Cerebras | Next provider answers on any error before the first token | Groq: 1,000 req/day, 8,000 tokens/min (measured 2026-11-11) |
 | Embeddings | Gemini (768 dims) | One call per question | Free; data may be used by Google |
 | Ingestion | TypeScript script, local or GitHub Actions | Off the request path | Free |
 | Logs | Workers Logs | Errors + latency per request | 200K events/day |

@@ -1,4 +1,4 @@
-export * from "./chat";
+export * from "./chat.ts";
 
 export const STORE_NAME = "Tallow & Pine";
 

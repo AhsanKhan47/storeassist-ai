@@ -11,6 +11,8 @@ export interface EmbedConfig {
   dimensions?: number;
   batchSize?: number;
   maxRetries?: number;
+  /** Per-attempt timeout. Default 30 s (ingestion); the chat path uses a short one. */
+  timeoutMs?: number;
   onRetry?: (info: { attempt: number; waitMs: number; reason: string }) => void;
 }
 
@@ -113,7 +115,7 @@ async function embedBatch(
         method: "POST",
         headers: { "content-type": "application/json", "x-goog-api-key": config.apiKey },
         body,
-        signal: AbortSignal.timeout(30_000),
+        signal: AbortSignal.timeout(config.timeoutMs ?? 30_000),
       });
       if (res.ok) return parseEmbeddings(await res.json(), texts.length, dimensions);
       const text = await res.text();

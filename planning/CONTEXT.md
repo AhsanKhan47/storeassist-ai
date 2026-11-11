@@ -18,6 +18,7 @@ things are the way they are, so a new session doesn't re-argue them.
 | Zero cost, no card anywhere | Ahsan's explicit requirement for a demo project |
 | Groq for chat, Gemini for embeddings | Both have no-card free tiers; Groq is fast and OpenAI-compatible; Gemini embeddings are free |
 | Fallback chain Groq → Gemini → Cerebras (optional) | Free tiers rate-limit; a fallback avoids visible failures during a client demo |
+| Groq model `openai/gpt-oss-120b` instead of Llama 3.3 70B (2026-11-11) | Groq no longer lists Llama 3.3 70B for this key. gpt-oss-120b was the strongest model available and tested well; Ahsan chose it over `qwen/qwen3.8-27b`. Gemini fallback is `gemini-3.5-flash-lite` (2.5-flash is closed to new users; 3.8-flash returned 503 "high demand") |
 | Neon + pgvector | Standard Postgres, free tier, works from Workers via HTTP driver; transferable skill for client work |
 | Upstash Redis cache + rate limiting | Protects the small free LLM quota; repeated questions are answered without an LLM call |
 | Backend is a standalone Hono API on Workers (not Next.js API routes) | Ahsan asked for a "solid stack that handles load". Workers auto-scale, never sleep, 100K req/day free |

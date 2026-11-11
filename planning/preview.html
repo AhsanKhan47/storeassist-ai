@@ -182,7 +182,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 16px 18px}
           <li class="step" data-k="cache"><span class="dot">3</span><div><b>Check answer cache</b><small id="s-cache">Upstash Redis</small></div></li>
           <li class="step" data-k="search"><span class="dot">4</span><div><b>Embed and search documents</b><small id="s-search">Gemini embedding, top 5 in Neon pgvector</small></div></li>
           <li class="step" data-k="cutoff"><span class="dot">5</span><div><b>Relevance check</b><small id="s-cutoff">Best match must score at least 0.55</small><div class="score" aria-hidden="true"><span id="bar"></span><i style="left:55%"></i></div></div></li>
-          <li class="step" data-k="llm"><span class="dot">6</span><div><b>Write answer from excerpts</b><small id="s-llm">Groq Llama 3.3 70B, streamed</small></div></li>
+          <li class="step" data-k="llm"><span class="dot">6</span><div><b>Write answer from excerpts</b><small id="s-llm">Groq gpt-oss-120b, streamed</small></div></li>
           <li class="step" data-k="save"><span class="dot">7</span><div><b>Attach sources, save to cache</b><small id="s-save">So the next asker gets it instantly</small></div></li>
         </ol>
       </section>
@@ -286,7 +286,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:0 16px 18px}
     $("#s-cache").textContent = "Upstash Redis";
     $("#s-search").textContent = "Gemini embedding, top 5 in Neon pgvector";
     $("#s-cutoff").textContent = "Best match must score at least 0.55";
-    $("#s-llm").textContent = "Groq Llama 3.3 70B, streamed";
+    $("#s-llm").textContent = "Groq gpt-oss-120b, streamed";
     $("#s-save").textContent = "So the next asker gets it instantly";
   }
   function updStats(){ $("#st-q").textContent = stats.q; $("#st-llm").textContent = stats.llm; $("#st-saved").textContent = stats.saved; }

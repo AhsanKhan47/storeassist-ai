@@ -16,7 +16,8 @@ Everything runs on free tiers: **no credit card, no subscriptions, ever.**
 - `apps/web`: Next.js (TS, App Router, Tailwind), **static export** on Cloudflare Pages. UI only.
 - `apps/api`: **Hono** on **Cloudflare Workers** (`wrangler.jsonc`)
 - Neon Postgres + pgvector (`@neondatabase/serverless` + Drizzle), Upstash Redis (cache + `@upstash/ratelimit`)
-- LLM: Groq (Llama 3.3 70B) → fallback Gemini → Cerebras if key set. Embeddings: Gemini, 768 dims.
+- LLM: Groq (`openai/gpt-oss-120b`; Llama 3.3 70B was retired) → fallback Gemini
+  (`gemini-3.5-flash-lite`) → Cerebras if key set. Embeddings: Gemini `gemini-embedding-001`, 768 dims.
 - Zod schemas shared in `packages/shared`; Vitest for tests
 
 ## Commands (fill in as they are created)
@@ -31,6 +32,8 @@ Everything runs on free tiers: **no credit card, no subscriptions, ever.**
 | Validate docs + eval questions | `pnpm check:content` |
 | Tests (from Phase 6) | `pnpm test` |
 | DB migrate / ingest / debug search (from Phase 3) | `pnpm db:migrate` / `pnpm ingest` / `pnpm run search "<q>"` (not `pnpm search`: that is pnpm's built-in registry search) |
+| Run the API only | `pnpm --filter @storeassist/api dev` (:8787) |
+| Ask the local API a question (from Phase 4) | `pnpm run chat "<q>"` (`--repeat N`, `--url URL`) |
 | Eval, 15 questions (from Phase 6) | `pnpm eval` |
 | Deploy API (from Phase 7) | `pnpm deploy:api` |
 

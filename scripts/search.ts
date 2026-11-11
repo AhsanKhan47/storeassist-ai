@@ -2,8 +2,9 @@
 // Use "pnpm run search", not "pnpm search": the latter is pnpm's built-in npm registry search.
 //   --limit N   number of results (default 5)
 //   --json      machine-readable output
-import { cosineDistance, createDb, eq, schema, sql } from "../apps/api/src/db/client.ts";
+import { createDb } from "../apps/api/src/db/client.ts";
 import { embedTexts } from "../apps/api/src/lib/embed.ts";
+import { chunkBody, searchChunks } from "../apps/api/src/lib/search.ts";
 import { requireEnv, runMain } from "./lib/env.ts";
 
 await runMain(async () => {
@@ -24,34 +25,16 @@ await runMain(async () => {
   });
   if (!vector) throw new Error("No embedding returned for the question.");
 
-  const distance = cosineDistance(schema.chunks.embedding, vector);
-  const rows = await db
-    .select({
-      slug: schema.documents.slug,
-      heading: schema.chunks.heading,
-      content: schema.chunks.content,
-      score: sql<number>`1 - (${distance})`,
-    })
-    .from(schema.chunks)
-    .innerJoin(schema.documents, eq(schema.chunks.documentId, schema.documents.id))
-    .orderBy(distance)
-    .limit(limit);
+  const rows = await searchChunks(db, vector, limit);
 
   if (json) {
-    console.log(
-      JSON.stringify({ question, results: rows.map((r) => ({ ...r, score: Number(r.score) })) }),
-    );
+    console.log(JSON.stringify({ question, results: rows }));
     return;
   }
   console.log(`\nQ: ${question}\n`);
   rows.forEach((row, i) => {
-    const snippet = row.content
-      .replace(/^## .*\n+/, "")
-      .replace(/\s+/g, " ")
-      .slice(0, 120);
-    console.log(
-      `#${i + 1}  ${Number(row.score).toFixed(3)}  ${row.slug} > ${row.heading ?? "(intro)"}`,
-    );
+    const snippet = chunkBody(row.content).replace(/\s+/g, " ").slice(0, 120);
+    console.log(`#${i + 1}  ${row.score.toFixed(3)}  ${row.slug} > ${row.heading ?? "(intro)"}`);
     console.log(`    ${snippet}${snippet.length === 120 ? "..." : ""}`);
   });
 });

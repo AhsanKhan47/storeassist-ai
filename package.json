@@ -16,7 +16,8 @@
     "db:generate": "pnpm --filter @storeassist/api exec drizzle-kit generate",
     "db:migrate": "node --env-file-if-exists=apps/api/.dev.vars scripts/migrate.ts",
     "ingest": "node --env-file-if-exists=apps/api/.dev.vars scripts/ingest.ts",
-    "search": "node --env-file-if-exists=apps/api/.dev.vars scripts/search.ts"
+    "search": "node --env-file-if-exists=apps/api/.dev.vars scripts/search.ts",
+    "chat": "node scripts/chat.ts"
   },
   "devDependencies": {
     "eslint": "^10.14.0",

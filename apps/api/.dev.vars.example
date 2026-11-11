@@ -5,3 +5,6 @@ GROQ_API_KEY=
 GEMINI_API_KEY=
 CEREBRAS_API_KEY=
 ALLOWED_ORIGIN=http://localhost:3000
+# Optional model overrides (defaults in apps/api/src/lib/config.ts)
+GROQ_CHAT_MODEL=
+GEMINI_CHAT_MODEL=
