@@ -1,6 +1,6 @@
 # Embeddable chat widget
 
-Status: Approved 2026-11-21; built and tested locally, at the gate (live check after push)
+Status: Done 2026-11-21 (approved at the gate; live on `https://storeassist-ai.pages.dev`)
 
 ## Goal
 
@@ -98,7 +98,16 @@ Host website                                   storeassist-ai.pages.dev
 - [x] The main site still refuses to be framed; only `/embed` can be framed
 - [x] The iframe is created only on first open; `widget.js` is small (6.6 KB unminified, **2.5 KB
       gzipped**; slightly over the 6 KB target before compression)
-- [ ] Lint, typecheck, tests, build pass (done); live check after Ahsan pushes (Pages rebuilds)
+- [x] Lint, typecheck, tests, build pass; live check passes after Ahsan's push (see below)
+
+## Results (2026-11-21, live)
+
+Same headless-Edge checks against `https://storeassist-ai.pages.dev` after the push (commit `bec5ef7`):
+launcher, lazy iframe, cited answer (2 source chips), fallback, close three ways with focus returning,
+reopen keeps the chat, phone full screen with no sideways scroll, hostile-CSS page unchanged, console
+clean. Headers: `/`, `/demo/`, `/try-widget` send `frame-ancestors 'none'` + `X-Frame-Options: DENY`;
+`/embed` sends `frame-ancestors *` with no `X-Frame-Options`; `widget.js` is cached 5 minutes. From a
+page on another origin, `/` is refused and `/embed` loads.
 
 ## Results (2026-11-21, local)
 

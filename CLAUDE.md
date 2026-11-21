@@ -39,6 +39,8 @@ Everything runs on free tiers: **no credit card, no subscriptions, ever.**
 | Eval against the live API | `pnpm eval --url https://storeassist-api.ahsankhan47.workers.dev` |
 
 Live: site `https://storeassist-ai.pages.dev`, API `https://storeassist-api.ahsankhan47.workers.dev`.
+Website widget: `<script src="https://storeassist-ai.pages.dev/widget.js" async></script>` (iframe of
+`/embed`; test page `/try-widget`, demo `/demo/`; only `/embed*` may be framed, see `public/_headers`).
 
 ## Conventions
 

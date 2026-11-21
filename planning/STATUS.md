@@ -1,6 +1,6 @@
 # STATUS
 
-Last updated: 2026-11-21 (Phase 7 complete; CPU fix next)
+Last updated: 2026-11-21 (widget live; Phase 8 next)
 
 ## Done
 
@@ -54,23 +54,23 @@ Last updated: 2026-11-21 (Phase 7 complete; CPU fix next)
   - Workers Logs: model answers use 12–32 ms CPU (median 24), above the free 10 ms guideline though
     nothing failed; fallbacks 6 ms (`plans/phase-7.md`)
 
+- **CPU fix** (2026-11-21): deltas sent in batches and a cheap per-token check instead of Zod; live
+  model-answer CPU median **24 → 11 ms** (8–17 ms); live eval 15/15 (`plans/fix-cpu.md`)
+- **Embeddable chat widget** (approved 2026-11-21, live): floating chat icon for any website via
+  `<script src="https://storeassist-ai.pages.dev/widget.js" async></script>` (`data-color`,
+  `data-position`, `data-label`; `window.StoreAssist.open/close/toggle/destroy`). Demo store page
+  `/demo/`, hostile-CSS test `/demo/hostile.html`, in-app test page `/try-widget` (settings, snippet with
+  Copy). Friendly instant replies to greetings/thanks (no search, no model call). All checks pass live;
+  live eval 15/15 + 8/8 extra (`plans/widget.md`)
+
 ## In progress
 
-- **Embeddable chat widget** (Ahsan, 2026-11-21): floating chat icon for any website via
-  `<script src="https://storeassist-ai.pages.dev/widget.js" async></script>`. Built and tested locally
-  (demo page, phone, hostile CSS, framing rules all pass), plus an in-app test page `/try-widget`
-  (live settings, snippet with Copy, open/close buttons), friendly replies to greetings/thanks (API
-  deployed, live eval 15/15) and a thin scrollbar in the widget. At the gate: after "approved", commit, Ahsan
-  pushes, Claude checks `https://storeassist-ai.pages.dev/demo/` live. Plan and results: `plans/widget.md`.
-
-Done since Phase 7: **CPU fix** (2026-11-21): deltas sent in batches and a cheap per-token check
-instead of Zod; live model-answer CPU median **24 → 11 ms** (8–17 ms); live eval 15/15
-(`plans/fix-cpu.md`).
+- Nothing. Next is Phase 8.
 
 ## Next
 
-- Ahsan pushes the Phase 7 docs commit: `git push origin main`.
-- After the widget: Phase 8 (README, screenshots, Loom, gig).
+- Phase 8 — Portfolio and selling: plan first (`plans/phase-8.md`): README, screenshots, 60-second
+  Loom script, Fiverr gig and Upwork copy. Show the widget (`/try-widget`, `/demo/`) as a selling point.
 - Local dev: run a single `pnpm dev`. Two `wrangler dev` copies in this folder share `.wrangler` state
   and both freeze on port 8787 (happened on 2026-11-11).
 
