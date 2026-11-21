@@ -1,6 +1,6 @@
 # STATUS
 
-Last updated: 2026-11-21 (widget live; Phase 8 next)
+Last updated: 2026-11-21 (Phase 8 built, at the gate)
 
 ## Done
 
@@ -65,12 +65,16 @@ Last updated: 2026-11-21 (widget live; Phase 8 next)
 
 ## In progress
 
-- Nothing. Next is Phase 8.
+- **Phase 8 — Portfolio and selling** (approved 2026-11-21): Claude's part built and at the gate:
+  `README.md`, 5 live screenshots in `.github/assets/`, Loom script, Fiverr gig and Upwork copy in
+  `planning/selling/` (`plans/phase-8.md`).
 
 ## Next
 
-- Phase 8 — Portfolio and selling: plan first (`plans/phase-8.md`): README, screenshots, 60-second
-  Loom script, Fiverr gig and Upwork copy. Show the widget (`/try-widget`, `/demo/`) as a selling point.
+- After "approved": commit + tag `phase-8`; Ahsan pushes; Claude checks the README on GitHub (images,
+  Mermaid diagram, links).
+- Ahsan: record the Loom, set prices, publish the Fiverr gig and Upwork portfolio entry, then send the
+  links so they go into the README (hidden comments mark the spots).
 - Local dev: run a single `pnpm dev`. Two `wrangler dev` copies in this folder share `.wrangler` state
   and both freeze on port 8787 (happened on 2026-11-11).
 

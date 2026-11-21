@@ -77,3 +77,5 @@ Website widget: `<script src="https://storeassist-ai.pages.dev/widget.js" async>
 | Accounts and keys status | `planning/SETUP.md` |
 | UI reference (simulated prototype) | `planning/preview.html` |
 | Per-phase sub-plans | `planning/plans/` |
+| Loom script, Fiverr and Upwork copy | `planning/selling/` |
+| README screenshots (taken from the live site) | `.github/assets/` |
