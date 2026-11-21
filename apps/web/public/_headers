@@ -8,3 +8,14 @@
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# The compact chat for the website widget (public/widget.js) may be shown inside any site's iframe.
+# For a paying client's own deployment, replace * with their domain, e.g. https://www.their-store.com
+/embed*
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://storeassist-api.ahsankhan47.workers.dev; frame-ancestors *; base-uri 'self'; form-action 'self'; object-src 'none'
+
+# Websites load the widget script from here; a short cache lets updates reach them within minutes.
+/widget.js
+  Cache-Control: public, max-age=300

@@ -50,11 +50,11 @@ function Stat({ value, label }: { value: number; label: string }) {
 
 function LastAnswer({ turn }: { turn: Turn }) {
   const top = turn.sources[0];
-  const answeredBy = turn.isFallback
-    ? "No model call"
-    : turn.provider
-      ? `${PROVIDER_LABEL[turn.provider]}${turn.cached ? " (saved)" : ""}`
-      : "None";
+  // A small-talk reply ("hi", "thanks"): no search, no model, no fallback.
+  const smallTalk = !turn.isFallback && !turn.provider && turn.sources.length === 0;
+  const answeredBy = turn.provider
+    ? `${PROVIDER_LABEL[turn.provider]}${turn.cached ? " (saved)" : ""}`
+    : "No model call";
   const fill = top ? Math.min(100, Math.round(top.score * 100)) : 0;
 
   return (
@@ -63,7 +63,7 @@ function LastAnswer({ turn }: { turn: Turn }) {
         <div className="match__head">
           <span>Closest match</span>
           <span className="match__score">
-            {top ? top.score.toFixed(2) : `Below ${RELEVANCE_CUTOFF}`}
+            {top ? top.score.toFixed(2) : smallTalk ? "Not needed" : `Below ${RELEVANCE_CUTOFF}`}
           </span>
         </div>
         <div className="meter" aria-hidden="true">
@@ -71,9 +71,11 @@ function LastAnswer({ turn }: { turn: Turn }) {
           <span className="meter__cut" style={{ left: `${RELEVANCE_CUTOFF * 100}%` }} />
         </div>
         <p className="meter__note">
-          {turn.isFallback
-            ? `Nothing reached the ${RELEVANCE_CUTOFF} cutoff, so the model was skipped.`
-            : `Answers need a match of ${RELEVANCE_CUTOFF} or more.`}
+          {smallTalk
+            ? "Greetings and thanks get a friendly reply without searching the policies."
+            : turn.isFallback
+              ? `Nothing reached the ${RELEVANCE_CUTOFF} cutoff, so the model was skipped.`
+              : `Answers need a match of ${RELEVANCE_CUTOFF} or more.`}
         </p>
       </div>
       <Row label="Excerpts read" value={String(turn.sources.length)} />

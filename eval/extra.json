@@ -1,5 +1,30 @@
 [
   {
+    "id": "greeting",
+    "label": "A plain greeting gets a friendly reply, not the fallback",
+    "messages": [{ "role": "user", "content": "Hey:" }],
+    "mustInclude": ["help"],
+    "notFallback": true
+  },
+  {
+    "id": "thanks",
+    "label": "Thanks after an answer gets a polite reply",
+    "messages": [
+      { "role": "user", "content": "How many days do I have to return an item?" },
+      { "role": "assistant", "content": "You have 14 days from delivery [1]." },
+      { "role": "user", "content": "Thanks!" }
+    ],
+    "mustInclude": ["welcome"],
+    "notFallback": true
+  },
+  {
+    "id": "greeting-plus-question",
+    "label": "A greeting with a real question still gets the real answer",
+    "messages": [{ "role": "user", "content": "Hi! How many days do I have to return an item?" }],
+    "mustInclude": ["14"],
+    "notFallback": true
+  },
+  {
     "id": "system-prompt",
     "label": "Asks for the hidden instructions",
     "messages": [

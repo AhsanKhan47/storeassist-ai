@@ -1575,3 +1575,365 @@ a:hover {
     --glass-strong: #ffffff;
   }
 }
+
+/* ---------- Website widget (embed page, shown inside public/widget.js) ---------- */
+
+/* Inside the widget: never scroll sideways, and use a thin, translucent scrollbar (macOS style)
+   instead of the thick default bar on Windows. */
+html:has(.app--embed) {
+  overflow-x: clip;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128, 132, 140, 0.45) transparent;
+}
+
+/* The blur strip behind the composer must stay inside the narrow panel. */
+.app--embed .composer-wrap::before {
+  inset: 0 -14px;
+}
+
+.app--embed .chat--embed {
+  max-width: none;
+  min-height: calc(100dvh - 62px);
+  padding: 0 14px;
+}
+
+.app--embed .thread {
+  padding-top: 18px;
+}
+
+.embed-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 10px 10px 14px;
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  box-shadow: 0 1px 0 var(--hair);
+}
+
+.embed-bar__actions {
+  display: flex;
+  gap: 6px;
+}
+
+.brand__tile--small {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.brand__name--small {
+  font-size: 15px;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--glass-strong);
+  box-shadow: var(--glass-edge);
+  color: var(--ink);
+  transition:
+    background-color 0.25s var(--ease-out),
+    transform 0.45s var(--spring),
+    opacity 0.25s var(--ease-out);
+}
+
+.icon-btn:hover:not(:disabled) {
+  background: var(--glass-hover);
+}
+
+.icon-btn:active:not(:disabled) {
+  transform: scale(0.92);
+  transition-duration: 0.12s;
+}
+
+.icon-btn:disabled {
+  opacity: 0.38;
+}
+
+.icon-btn__icon {
+  width: 17px;
+  height: 17px;
+}
+
+.hero--compact {
+  padding: 6px 0 0;
+}
+
+.hero--compact .hero__pill {
+  margin-bottom: 14px;
+  padding: 5px 11px 5px 10px;
+  font-size: 12px;
+}
+
+.hero--compact .hero__title {
+  margin-bottom: 8px;
+  font-size: 30px;
+}
+
+.hero--compact .hero__lead {
+  font-size: 15px;
+}
+
+.starters--compact {
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.starters--compact .starter {
+  padding: 12px 36px 12px 12px;
+  border-radius: 18px;
+}
+
+.starters--compact .starter__icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+}
+
+.starters--compact .starter__glyph {
+  width: 17px;
+  height: 17px;
+}
+
+.starters--compact .starter__q {
+  font-size: 14.5px;
+}
+
+.app--embed .composer-wrap {
+  padding: 12px 0 max(10px, env(safe-area-inset-bottom));
+}
+
+.embed-foot {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--ink-3);
+}
+
+/* ---------- Widget test page (/try-widget) ---------- */
+
+.tw {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px 120px;
+}
+
+.tw-hero {
+  padding: 6vh 0 8px;
+  text-align: center;
+}
+
+.tw-hero__title {
+  max-width: 13em;
+  margin: 0 auto 16px;
+  font-size: clamp(32px, 5.4vw, 52px);
+  font-weight: 680;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.tw-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.tw-card {
+  padding: 20px 22px 22px;
+}
+
+.tw-card--wide {
+  grid-column: 1 / -1;
+}
+
+.tw-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tw-card__title {
+  margin: 0 0 12px;
+  font-size: 17px;
+  font-weight: 620;
+  letter-spacing: -0.018em;
+}
+
+.tw-card__head .tw-card__title {
+  margin: 0;
+}
+
+.tw-code {
+  margin: 14px 0 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  border-radius: 14px;
+  background: var(--hair);
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.tw-code--small {
+  font-size: 12.5px;
+}
+
+.tw-note {
+  margin: 12px 0 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.tw-note code {
+  font-family: ui-monospace, "SF Mono", Consolas, monospace;
+  font-size: 12.5px;
+}
+
+.tw-field {
+  display: block;
+  margin: 0 0 18px;
+  padding: 0;
+  border: 0;
+}
+
+.tw-label {
+  display: block;
+  margin-bottom: 8px;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 550;
+  color: var(--ink-2);
+}
+
+.tw-swatches {
+  display: flex;
+  gap: 10px;
+}
+
+.tw-swatch {
+  position: relative;
+  cursor: pointer;
+}
+
+.tw-swatch input,
+.tw-segment__option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tw-swatch__dot {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 0 1px var(--hair-strong);
+  transition:
+    transform 0.4s var(--spring),
+    box-shadow 0.2s var(--ease-out);
+}
+
+.tw-swatch input:checked + .tw-swatch__dot {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 0 3px var(--bg),
+    0 0 0 5px var(--blue-text);
+}
+
+.tw-swatch input:focus-visible + .tw-swatch__dot {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+}
+
+.tw-segment {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 12px;
+  background: var(--hair);
+}
+
+.tw-segment__option span {
+  display: block;
+  padding: 7px 14px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.2s var(--ease-out),
+    box-shadow 0.2s var(--ease-out);
+}
+
+.tw-segment__option input:checked + span {
+  background: var(--glass-strong);
+  box-shadow: var(--glass-edge), var(--lift-1);
+}
+
+.tw-segment__option input:focus-visible + span {
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+}
+
+.tw-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 12px;
+  outline: none;
+  background: var(--glass-strong);
+  box-shadow: var(--glass-edge);
+  font-size: 15px;
+}
+
+.tw-input:focus-visible {
+  box-shadow:
+    var(--glass-edge),
+    0 0 0 3px var(--focus);
+}
+
+.tw-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.tw-links {
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px var(--hair);
+}
+
+.tw-links .try {
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (max-width: 760px) {
+  .tw {
+    padding: 0 14px 120px;
+  }
+
+  .tw-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -9,24 +9,28 @@ const order = (i: number) => ({ "--i": i }) as CSSProperties;
 export function Welcome({
   onAsk,
   disabled,
+  compact = false,
 }: {
   onAsk: (question: string) => void;
   disabled: boolean;
+  /** Smaller layout for the website widget. */
+  compact?: boolean;
 }) {
   return (
-    <section className="hero" aria-labelledby="hero-title">
+    <section className={compact ? "hero hero--compact" : "hero"} aria-labelledby="hero-title">
       <p className="hero__pill rise" style={order(0)}>
         <span className="hero__dot" aria-hidden="true" />
         Answers from 15 store policy pages
       </p>
       <h2 id="hero-title" className="hero__title rise" style={order(1)}>
-        Ask about your order, delivery or returns.
+        {compact ? "How can we help?" : "Ask about your order, delivery or returns."}
       </h2>
       <p className="hero__lead rise" style={order(2)}>
-        Every answer comes straight from {STORE_NAME}&rsquo;s policies and shows the page it came
-        from.
+        {compact
+          ? "Ask about orders, delivery, returns or sizing. Every answer shows its source."
+          : `Every answer comes straight from ${STORE_NAME}’s policies and shows the page it came from.`}
       </p>
-      <ul className="starters">
+      <ul className={compact ? "starters starters--compact" : "starters"}>
         {STARTERS.map((starter, i) => (
           <li key={starter.question} className="rise" style={order(3 + i)}>
             <button

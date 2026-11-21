@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Linen Wrap Dress | Tallow &amp; Pine (widget demo)</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <style>
+      :root {
+        --ink: #2b2620;
+        --muted: #7a7166;
+        --line: #e7e1d8;
+        --bg: #fbf9f6;
+        --pine: #27493f;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.6;
+      }
+      .demo-note {
+        margin: 0;
+        padding: 10px 16px;
+        background: #1f3b33;
+        color: #f4efe6;
+        font:
+          14px/1.4 system-ui,
+          sans-serif;
+        text-align: center;
+      }
+      .demo-note code {
+        padding: 2px 6px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.14);
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 22px 20px;
+        border-bottom: 1px solid var(--line);
+      }
+      .logo {
+        font-size: 22px;
+        letter-spacing: 0.04em;
+      }
+      nav {
+        display: flex;
+        gap: 22px;
+        font:
+          15px system-ui,
+          sans-serif;
+        color: var(--muted);
+      }
+      main {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 48px;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 20px 120px;
+      }
+      .photo {
+        aspect-ratio: 4 / 5;
+        border-radius: 6px;
+        background:
+          radial-gradient(circle at 30% 25%, #e9dfcf, transparent 60%),
+          linear-gradient(160deg, #d8c8b0, #b7a183);
+      }
+      h1 {
+        margin: 0 0 6px;
+        font-size: 36px;
+        font-weight: normal;
+      }
+      .price {
+        margin: 0 0 22px;
+        font:
+          20px system-ui,
+          sans-serif;
+      }
+      .sizes {
+        display: flex;
+        gap: 8px;
+        margin: 18px 0 26px;
+      }
+      .sizes span {
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 40px;
+        border: 1px solid var(--line);
+        font:
+          14px system-ui,
+          sans-serif;
+      }
+      .add {
+        width: 100%;
+        padding: 15px;
+        border: 0;
+        background: var(--pine);
+        color: #fff;
+        font:
+          16px system-ui,
+          sans-serif;
+        letter-spacing: 0.04em;
+        cursor: pointer;
+      }
+      .hint {
+        margin-top: 18px;
+        font:
+          14px/1.5 system-ui,
+          sans-serif;
+        color: var(--muted);
+      }
+      @media (max-width: 760px) {
+        nav {
+          display: none;
+        }
+        main {
+          grid-template-columns: 1fr;
+          gap: 24px;
+          padding-top: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="demo-note">
+      Demo store page with fictional data. The chat button in the corner comes from one line:
+      <code
+        >&lt;script src="https://storeassist-ai.pages.dev/widget.js" async&gt;&lt;/script&gt;</code
+      >
+    </p>
+    <header>
+      <div class="logo">TALLOW &amp; PINE</div>
+      <nav><span>New in</span><span>Dresses</span><span>Knitwear</span><span>Help</span></nav>
+    </header>
+    <main>
+      <div class="photo" role="img" aria-label="Product photo placeholder"></div>
+      <div>
+        <h1>Linen Wrap Dress</h1>
+        <p class="price">$128.00</p>
+        <p>
+          A relaxed wrap dress in washed European linen, with a tie waist and deep pockets. Made in
+          small batches in Portland.
+        </p>
+        <div class="sizes" aria-label="Sizes">
+          <span>XS</span><span>S</span><span>M</span><span>L</span><span>XL</span>
+        </div>
+        <button class="add" type="button">Add to bag</button>
+        <p class="hint">
+          Questions about sizing, delivery or returns? Use the chat button in the corner.
+        </p>
+      </div>
+    </main>
+    <script src="/widget.js" async></script>
+  </body>
+</html>

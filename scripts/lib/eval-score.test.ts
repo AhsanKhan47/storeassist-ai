@@ -160,3 +160,28 @@ describe("scoreExtra", () => {
     expect(scoreExtra(decline, answer("Here is a lovely poem about Portland.")).pass).toBe(false);
   });
 });
+
+describe("scoreExtra notFallback", () => {
+  const check = {
+    id: "greeting",
+    label: "Greeting",
+    messages: [{ role: "user" as const, content: "Hey" }],
+    mustInclude: ["help"],
+    notFallback: true,
+  };
+
+  it("passes a friendly reply", () => {
+    expect(scoreExtra(check, answer("Hi! I can help with orders.", { sources: [] })).pass).toBe(
+      true,
+    );
+  });
+
+  it("fails the fallback", () => {
+    const result = scoreExtra(
+      check,
+      answer("I couldn't find that. Our team can help.", { isFallback: true, sources: [] }),
+    );
+    expect(result.pass).toBe(false);
+    expect(result.reasons).toContain("got the fallback");
+  });
+});

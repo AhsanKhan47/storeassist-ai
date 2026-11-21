@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { MAX_MESSAGE_CHARS } from "@storeassist/shared";
 import { ArrowUpIcon } from "./icons.tsx";
 
@@ -8,13 +8,19 @@ interface ComposerProps {
   /** Returns true if the question was accepted (so the box can clear). */
   onSend: (text: string) => boolean;
   busy: boolean;
+  /** Focus the box when it appears, on devices with a mouse (on phones it would pop up the keyboard). */
+  autoFocus?: boolean;
 }
 
 const MAX_HEIGHT_PX = 150;
 
-export function Composer({ onSend, busy }: ComposerProps) {
+export function Composer({ onSend, busy, autoFocus = false }: ComposerProps) {
   const [text, setText] = useState("");
   const fieldRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (autoFocus && window.matchMedia("(pointer: fine)").matches) fieldRef.current?.focus();
+  }, [autoFocus]);
 
   const resize = () => {
     const field = fieldRef.current;

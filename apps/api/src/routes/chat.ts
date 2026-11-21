@@ -43,9 +43,11 @@ import {
   type CachedAnswer,
 } from "../lib/redis.ts";
 import { chunkBody, searchChunks } from "../lib/search.ts";
+import { smallTalkReply } from "../lib/smalltalk.ts";
 
 type AppEnv = { Bindings: Bindings };
-type Outcome = "answer" | "fallback" | "cache" | "rate_limited" | "invalid" | "busy" | "error";
+type Outcome =
+  "answer" | "fallback" | "smalltalk" | "cache" | "rate_limited" | "invalid" | "busy" | "error";
 
 const BUSY_MESSAGE = "Our assistant is busy right now. Please try again in a moment.";
 
@@ -151,6 +153,19 @@ chat.post(
         detail: err instanceof Error ? err.message.slice(0, 200) : "redis error",
       });
       return jsonError(c, 503, "busy", BUSY_MESSAGE);
+    }
+
+    // Small talk ("hey", "thanks", "bye"): a friendly reply, no search, no model call.
+    const small = smallTalkReply(question);
+    if (small) {
+      log("smalltalk");
+      return streamWhole(c, {
+        answer: small,
+        sources: [],
+        isFallback: false,
+        cached: false,
+        provider: null,
+      });
     }
 
     // 3. Cache (single-turn questions only: follow-up answers depend on history)

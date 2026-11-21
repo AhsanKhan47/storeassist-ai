@@ -59,7 +59,10 @@ function metaLine(turn: Turn): string | null {
   const time = `${(turn.ms / 1000).toFixed(1)} s`;
   if (turn.isFallback) return `No model needed, ${time}`;
   if (turn.cached) return `Saved answer, ${time}`;
-  return turn.provider ? `Answered by ${PROVIDER_LABEL[turn.provider]} in ${time}` : time;
+  // No model and no fallback: a small-talk reply ("hi", "thanks").
+  return turn.provider
+    ? `Answered by ${PROVIDER_LABEL[turn.provider]} in ${time}`
+    : `Instant reply, ${time}`;
 }
 
 export function UserMessage({ turn }: { turn: Turn }) {

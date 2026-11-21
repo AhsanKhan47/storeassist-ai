@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { STORE_NAME, type ChatMessage } from "@storeassist/shared";
 import { ChatFailure, streamAnswer } from "../lib/chat-client.ts";
@@ -7,7 +8,7 @@ import { buildHistory } from "../lib/history.ts";
 import { GITHUB_URL } from "../lib/questions.ts";
 import { exchangesOf, newTurn, type Turn } from "../lib/turns.ts";
 import { Composer } from "./Composer.tsx";
-import { ComposeIcon, PanelIcon } from "./icons.tsx";
+import { CloseIcon, ComposeIcon, PanelIcon } from "./icons.tsx";
 import { AssistantMessage, UserMessage } from "./Message.tsx";
 import { UnderTheHood, type SessionStats } from "./UnderTheHood.tsx";
 import { Welcome } from "./Welcome.tsx";
@@ -15,7 +16,19 @@ import { Welcome } from "./Welcome.tsx";
 const HOOD_ID = "under-the-hood";
 const NEAR_BOTTOM_PX = 200;
 
-export function Chat() {
+/** Message the embed page sends to the page hosting the widget (public/widget.js). */
+const CLOSE_MESSAGE = { type: "storeassist:close" } as const;
+
+function closeWidget() {
+  // Carries no data, so any target origin is safe; widget.js checks where it came from.
+  if (window.parent !== window) window.parent.postMessage(CLOSE_MESSAGE, "*");
+}
+
+/** "page": the full site. "embed": the compact chat shown inside the website widget. */
+export type ChatVariant = "page" | "embed";
+
+export function Chat({ variant = "page" }: { variant?: ChatVariant }) {
+  const embed = variant === "embed";
   const [turns, setTurns] = useState<Turn[]>([]);
   const [busy, setBusy] = useState(false);
   const [hoodOpen, setHoodOpen] = useState(false);
@@ -59,6 +72,16 @@ export function Chat() {
     return () => window.removeEventListener("keydown", onKey);
   }, [hoodOpen]);
 
+  // Inside the widget, Escape closes the panel (keys pressed in the iframe never reach the host page).
+  useEffect(() => {
+    if (!embed) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeWidget();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [embed]);
+
   useEffect(() => () => abortRef.current?.abort(), []);
 
   /** Streams one answer into the assistant turn `botId`. */
@@ -95,7 +118,8 @@ export function Chat() {
             setStats((s) => ({
               ...s,
               modelCalls: s.modelCalls + (skippedModel ? 0 : 1),
-              saved: s.saved + (cached || fallback ? 1 : 0),
+              // Cached answers, fallbacks and small-talk replies all skipped the model.
+              saved: s.saved + (skippedModel ? 1 : 0),
             }));
           },
         },
@@ -169,19 +193,92 @@ export function Chat() {
   const last =
     [...turns].reverse().find((t) => t.role === "assistant" && t.status === "done") ?? null;
 
+  const thread = (
+    <div ref={threadRef} className="thread" role="log" aria-label="Conversation" aria-live="polite">
+      {turns.length === 0 ? (
+        <Welcome onAsk={send} disabled={busy} compact={embed} />
+      ) : (
+        turns.map((turn) =>
+          turn.role === "user" ? (
+            <UserMessage key={turn.id} turn={turn} />
+          ) : (
+            <AssistantMessage key={turn.id} turn={turn} onRetry={retry} retryDisabled={busy} />
+          ),
+        )
+      )}
+    </div>
+  );
+
+  const ambient = (
+    <div className="ambient" aria-hidden="true">
+      <span className="ambient__orb ambient__orb--1" />
+      <span className="ambient__orb ambient__orb--2" />
+      <span className="ambient__orb ambient__orb--3" />
+      <span className="ambient__grain" />
+    </div>
+  );
+
+  if (embed) {
+    return (
+      <div className="app app--embed">
+        {ambient}
+        <header className="embed-bar">
+          <div className="brand">
+            <span className="brand__tile brand__tile--small" aria-hidden="true">
+              TP
+            </span>
+            <div className="brand__text">
+              <h1 className="brand__name brand__name--small">{STORE_NAME}</h1>
+              <p className="brand__sub">Answers from our store policies</p>
+            </div>
+          </div>
+          <div className="embed-bar__actions">
+            <button
+              type="button"
+              className="icon-btn"
+              disabled={turns.length === 0}
+              onClick={newChat}
+              aria-label="New chat"
+              title="New chat"
+            >
+              <ComposeIcon className="icon-btn__icon" />
+            </button>
+            <button
+              type="button"
+              className="icon-btn"
+              onClick={closeWidget}
+              aria-label="Close chat"
+              title="Close"
+            >
+              <CloseIcon className="icon-btn__icon" />
+            </button>
+          </div>
+        </header>
+        <main className="chat chat--embed">
+          {thread}
+          <div className="composer-wrap">
+            <Composer onSend={send} busy={busy} autoFocus />
+            <p className="embed-foot">
+              Demo with fictional sample data.{" "}
+              <a href={GITHUB_URL} target="_blank" rel="noreferrer">
+                How it works
+              </a>
+            </p>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="app">
-      <div className="ambient" aria-hidden="true">
-        <span className="ambient__orb ambient__orb--1" />
-        <span className="ambient__orb ambient__orb--2" />
-        <span className="ambient__orb ambient__orb--3" />
-        <span className="ambient__grain" />
-      </div>
+      {ambient}
 
       <div className="notice">
         Demo with fictional sample data. {STORE_NAME} is not a real store.{" "}
+        <Link href="/try-widget">Try it as a website widget</Link> or{" "}
         <a href={GITHUB_URL} target="_blank" rel="noreferrer">
-          View the code on GitHub
+          view the code on GitHub
         </a>
       </div>
 
@@ -227,30 +324,7 @@ export function Chat() {
 
       <div className="layout">
         <main className="chat">
-          <div
-            ref={threadRef}
-            className="thread"
-            role="log"
-            aria-label="Conversation"
-            aria-live="polite"
-          >
-            {turns.length === 0 ? (
-              <Welcome onAsk={send} disabled={busy} />
-            ) : (
-              turns.map((turn) =>
-                turn.role === "user" ? (
-                  <UserMessage key={turn.id} turn={turn} />
-                ) : (
-                  <AssistantMessage
-                    key={turn.id}
-                    turn={turn}
-                    onRetry={retry}
-                    retryDisabled={busy}
-                  />
-                ),
-              )
-            )}
-          </div>
+          {thread}
           <div className="composer-wrap">
             <Composer onSend={send} busy={busy} />
             <p className="composer-hint">

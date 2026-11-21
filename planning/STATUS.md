@@ -56,8 +56,12 @@ Last updated: 2026-11-21 (Phase 7 complete; CPU fix next)
 
 ## In progress
 
-- **Embeddable chat widget** (Ahsan, 2026-11-21): floating chat icon for any website via one script
-  tag. Plan: `plans/widget.md`, waiting for approval before code.
+- **Embeddable chat widget** (Ahsan, 2026-11-21): floating chat icon for any website via
+  `<script src="https://storeassist-ai.pages.dev/widget.js" async></script>`. Built and tested locally
+  (demo page, phone, hostile CSS, framing rules all pass), plus an in-app test page `/try-widget`
+  (live settings, snippet with Copy, open/close buttons), friendly replies to greetings/thanks (API
+  deployed, live eval 15/15) and a thin scrollbar in the widget. At the gate: after "approved", commit, Ahsan
+  pushes, Claude checks `https://storeassist-ai.pages.dev/demo/` live. Plan and results: `plans/widget.md`.
 
 Done since Phase 7: **CPU fix** (2026-11-21): deltas sent in batches and a cheap per-token check
 instead of Zod; live model-answer CPU median **24 → 11 ms** (8–17 ms); live eval 15/15

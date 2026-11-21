@@ -26,6 +26,8 @@ export interface ExtraCheck {
   requireDecline?: boolean;
   /** The reply must not contain anything shaped like a discount code. */
   noCodes?: boolean;
+  /** The reply must not be the "not in our policies" fallback (greetings, real questions). */
+  notFallback?: boolean;
 }
 
 export interface SourceRef {
@@ -152,6 +154,7 @@ export function scoreExtra(check: ExtraCheck, outcome: ChatOutcome): Score {
     const code = findCode(outcome.answer);
     if (code) reasons.push(`contains something shaped like a code: ${code}`);
   }
+  if (check.notFallback && outcome.isFallback) reasons.push("got the fallback");
   return {
     pass: reasons.length === 0,
     reasons,
