@@ -1,6 +1,6 @@
 # Phase 7 — Deployment
 
-Status: Approved 2026-11-11; in progress (code committed as `phase-7`, live checks pending)
+Status: Done (approved 2026-11-21)
 
 ## Goal
 
@@ -92,13 +92,41 @@ secret; it goes in `wrangler.jsonc`.
 
 - [ ] `https://storeassist-api.ahsankhan47.workers.dev/health` returns `{"ok":true}`
 - [ ] The live site loads, shows the landing screen, streams a cited answer and the fallback
-- [ ] Only the Pages address gets a CORS header; other origins get none
-- [ ] Security headers present on the site (CSP, nosniff, referrer, permissions) with no CSP errors in
+- [x] Only the Pages address gets a CORS header; other origins get none
+- [x] Security headers present on the site (CSP, nosniff, referrer, permissions) with no CSP errors in
       the browser console; API responses carry `secureHeaders`
-- [ ] `pnpm eval --url <live API>` writes a 15/15 report
-- [ ] Workers Logs show requests with CPU time recorded; no 1102 (CPU limit) errors during the eval
-- [ ] Ahsan opens the live link on his phone and gets an answer
-- [ ] No secret in the repo, the built site, or command output; everything on free plans, no card
+- [x] `pnpm eval --url <live API>` writes a 15/15 report
+- [x] Workers Logs show requests with CPU time recorded; no 1102 (CPU limit) errors during the eval
+      (but CPU time is above the 10 ms guideline, see results)
+- [x] Ahsan opens the live link on his phone and gets an answer
+- [x] No secret in the repo, the built site, or command output; everything on free plans, no card
+
+## What happened during deployment
+
+- **Secrets:** the first `wrangler secret put` raced the first deploy and offered to create a new Worker
+  (answered no, then re-run one by one). `UPSTASH_REDIS_REST_URL` was first saved **with quotes**; the
+  Worker log showed "invalid URL"; re-entered without quotes.
+- **Pages:** the first project was created as a **Worker** with Git builds (`npx wrangler deploy` at the
+  monorepo root failed) and was deleted. The Pages project's first builds skipped the build step
+  (settings not saved; the raw repo was published, 404), then baked in `localhost:8787`
+  (`NEXT_PUBLIC_API_URL` missing at build time). Both were dashboard settings; fixed.
+- **Commit timing:** code committed and tagged `phase-7` mid-phase (as planned) so Pages could build it.
+- **Q7 eval check:** the first live run scored 14/15 because Q7's check required the $29 price, which
+  the question does not ask for; the answer was correct and complete. The check now requires what the
+  question asks (UK served, buyer pays customs). Rerun: 15/15.
+
+## Results (2026-11-21, live)
+
+| Check | Result |
+| --- | --- |
+| API `/health` | `{"ok":true}` |
+| Site build | Commit `908cd83`; JS calls the live API, not localhost |
+| Site headers | CSP, X-Frame-Options DENY, nosniff, Referrer-Policy, Permissions-Policy |
+| CORS | Only `https://storeassist-ai.pages.dev` gets the allow-origin header; others and localhost none |
+| Real browser (headless Edge) | Cited answer (Groq, 2.9 s) with excerpt, fallback for "Do you sell shoes?", phone width in dark mode with no horizontal scroll, every request to the live API, no console errors |
+| Ahsan's phone | Works |
+| Live eval | **15/15**, extra attack checks 5/5 (`eval/report.md`) |
+| Workers Logs (20 eval requests) | All `ok`, no 1102. **CPU time: fallbacks median 6 ms, model answers median 24 ms (12–32 ms)**, rising with answer length: the per-token streaming loop is the cost. Above the free plan's 10 ms guideline though nothing failed; trimming it is the next change |
 
 ## Tests
 

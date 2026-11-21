@@ -1,6 +1,6 @@
 # STATUS
 
-Last updated: 2026-11-11 (Phase 6 complete)
+Last updated: 2026-11-21 (Phase 7 complete; CPU fix next)
 
 ## Done
 
@@ -47,20 +47,23 @@ Last updated: 2026-11-11 (Phase 6 complete)
   - Security pass: no key in git history, CORS, input limits, rate limit, private logs, no vulnerable
     dependencies (`plans/phase-6.md`)
 
+- Phase 7 — Deployment (approved 2026-11-21)
+  - **Live:** site `https://storeassist-ai.pages.dev` (Pages, builds from GitHub `main`), API
+    `https://storeassist-api.ahsankhan47.workers.dev` (Worker, 5 secrets, CORS locked to the site)
+  - Security headers on site and API; works on Ahsan's phone; live eval **15/15** (+5/5 extra checks)
+  - Workers Logs: model answers use 12–32 ms CPU (median 24), above the free 10 ms guideline though
+    nothing failed; fallbacks 6 ms (`plans/phase-7.md`)
+
 ## In progress
 
-- **Phase 7 — Deployment** (plan approved 2026-11-11). API live at
-  `https://storeassist-api.ahsankhan47.workers.dev` (5 secrets set, CORS locked to
-  `https://storeassist-ai.pages.dev`). Pages project `storeassist-ai` created from GitHub. Code
-  (security headers, Workers Logs, `pnpm deploy:api`) committed and tagged `phase-7` mid-phase so Pages
-  can build it. Next: Ahsan pushes; Claude checks the live site and runs the live eval; gate.
-  - First Pages builds published nothing (build command not saved), then baked in `localhost:8787`
-    (`NEXT_PUBLIC_API_URL` missing at build time). Both are dashboard settings, now set.
+- **CPU fix** (Ahsan asked to proceed, 2026-11-21): trim the per-token streaming loop so model answers
+  stay near the free plan's 10 ms CPU guideline. Plan: `plans/fix-cpu.md`.
 
 ## Next
 
-- Ahsan pushes: `git push origin main phase-4 phase-5 phase-6` (committed and tagged locally).
-- Phase 7: deployment (Worker + Pages, secrets, live URLs, security headers, live `pnpm eval`).
+- Ahsan pushes the Phase 7 docs commit: `git push origin main`.
+- After the CPU fix: **embeddable chat widget** (floating chat icon for any website via one script tag;
+  Ahsan's idea, 2026-11-21), planned as its own step; then Phase 8 (README, screenshots, Loom, gig).
 - Local dev: run a single `pnpm dev`. Two `wrangler dev` copies in this folder share `.wrangler` state
   and both freeze on port 8787 (happened on 2026-11-11).
 
@@ -107,5 +110,5 @@ Last updated: 2026-11-11 (Phase 6 complete)
 | 4 Chat API | Done | `phase-4` | Groq model now gpt-oss-120b |
 | 5 Chat UI | Done | `phase-5` | Premium Apple-style UI |
 | 6 Quality + evals | Done | `phase-6` | 15/15 eval, 42 unit tests |
-| 7 Deployment | In progress | `phase-7` | API live; site live checks pending |
+| 7 Deployment | Done | `phase-7` | Live site + API; live eval 15/15 |
 | 8 Portfolio + selling | Not started | | |

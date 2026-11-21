@@ -35,7 +35,10 @@ Everything runs on free tiers: **no credit card, no subscriptions, ever.**
 | Run the API only | `pnpm --filter @storeassist/api dev` (:8787) |
 | Ask the local API a question (from Phase 4) | `pnpm run chat "<q>"` (`--repeat N`, `--url URL`) |
 | Eval, 15 questions → `eval/report.md` | `pnpm eval` (needs `pnpm dev`; `--url`, `--pace ms`, `--only 1,9`, `--keep-cache`, `--skip-extra`) |
-| Deploy API (from Phase 7) | `pnpm deploy:api` |
+| Deploy API | `pnpm deploy:api` (website deploys itself from GitHub `main` via Cloudflare Pages) |
+| Eval against the live API | `pnpm eval --url https://storeassist-api.ahsankhan47.workers.dev` |
+
+Live: site `https://storeassist-ai.pages.dev`, API `https://storeassist-api.ahsankhan47.workers.dev`.
 
 ## Conventions
 
