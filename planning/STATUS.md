@@ -1,6 +1,6 @@
 # STATUS
 
-Last updated: 2026-11-21 (client-ready UI deployed, at the gate)
+Last updated: 2026-11-21 (client-ready UI done; waiting on Ahsan's Loom/Fiverr/Upwork links)
 
 ## Done
 
@@ -66,13 +66,14 @@ Last updated: 2026-11-21 (client-ready UI deployed, at the gate)
 - **Phase 8, Claude's part** (tag `phase-8`): `README.md` (renders on GitHub; repo now public), 5 live
   screenshots in `.github/assets/`, Loom script, Fiverr gig and Upwork copy in `planning/selling/`
   (`plans/phase-8.md`)
+- **Client-ready UI** (approved 2026-11-21, live): no GitHub links or demo wording in the UI; side
+  panel, Details button, model/timing lines and match scores only with `?details=1` / `#details`;
+  header narrows to the chat when the panel is hidden. Screenshots retaken (WebP in `.github/assets/`,
+  JPG in `planning/selling/upwork-images/`); live eval 15/15 (`plans/client-ready-ui.md`)
 
 ## In progress
 
-- **Client-ready UI** (approved 2026-11-21, at the gate): no GitHub links or demo wording in the UI;
-  side panel, Details button, model/timing lines and match scores only with `?details=1` / `#details`;
-  header narrows to the chat when the panel is hidden. Deployed; screenshots retaken (WebP in
-  `.github/assets/`, JPG in `planning/selling/upwork-images/`) (`plans/client-ready-ui.md`).
+- Nothing. Claude's work is done until Ahsan sends links or picks features from the to-do doc.
 
 ## Next
 

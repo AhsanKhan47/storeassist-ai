@@ -1,6 +1,6 @@
 # Client-ready UI
 
-Status: Approved 2026-11-21; built and checked locally, deployed, screenshots retaken (at the gate)
+Status: Done 2026-11-21 (approved at the gate; live)
 
 ## Goal
 
