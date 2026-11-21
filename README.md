@@ -76,7 +76,7 @@ host site. Try the settings live at [/try-widget](https://storeassist-ai.pages.d
 ## How it works
 
 ```mermaid
-flowchart LR
+flowchart TD
   V[Visitor] --> W["Website or widget<br/>Next.js on Cloudflare Pages"]
   W -- question --> A["Chat API<br/>Hono on Cloudflare Workers"]
   A --> RL{"Rate limit<br/>10/min per IP"}

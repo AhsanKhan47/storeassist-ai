@@ -92,8 +92,9 @@ No app code changes.
 
 ## Acceptance criteria
 
-- [ ] README shows correctly on GitHub: screenshots load, Mermaid diagram draws, every link works
-      (checked after the push)
+- [x] README shows correctly on GitHub: screenshots load, Mermaid diagram draws, every link works
+      (checked 2026-11-21 after the push and making the repo public; diagram switched to top-down
+      because the left-to-right version was too small and GitHub's zoom buttons covered its end)
 - [x] README facts match the repo: eval score, test count, commands, model names, env var names
 - [x] No secrets or key values anywhere; `.dev.vars` keys named only
 - [x] 5 screenshots from the live site, each under ~300 KB, no personal data, "sample data" visible
