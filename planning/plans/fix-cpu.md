@@ -1,6 +1,6 @@
 # Fix — Worker CPU time on model answers
 
-Status: Approved 2026-11-21 (Ahsan: "proceed with the next change we discussed"); building
+Status: Done (approved 2026-11-21)
 
 ## Problem
 

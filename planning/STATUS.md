@@ -56,16 +56,17 @@ Last updated: 2026-11-21 (Phase 7 complete; CPU fix next)
 
 ## In progress
 
-- **CPU fix** (Ahsan asked to proceed, 2026-11-21): deltas sent in batches and a cheap per-token check
-  instead of Zod. Deployed: model-answer CPU median **24 → 11 ms** (range 8–17 ms), 11/11 answerable
-  questions pass live; full live eval 15/15. At the gate: waiting for Ahsan's "approved", then commit.
-  Plan and results: `plans/fix-cpu.md`.
+- **Embeddable chat widget** (Ahsan, 2026-11-21): floating chat icon for any website via one script
+  tag. Plan: `plans/widget.md`, waiting for approval before code.
+
+Done since Phase 7: **CPU fix** (2026-11-21): deltas sent in batches and a cheap per-token check
+instead of Zod; live model-answer CPU median **24 → 11 ms** (8–17 ms); live eval 15/15
+(`plans/fix-cpu.md`).
 
 ## Next
 
 - Ahsan pushes the Phase 7 docs commit: `git push origin main`.
-- After the CPU fix: **embeddable chat widget** (floating chat icon for any website via one script tag;
-  Ahsan's idea, 2026-11-21), planned as its own step; then Phase 8 (README, screenshots, Loom, gig).
+- After the widget: Phase 8 (README, screenshots, Loom, gig).
 - Local dev: run a single `pnpm dev`. Two `wrangler dev` copies in this folder share `.wrangler` state
   and both freeze on port 8787 (happened on 2026-11-11).
 
