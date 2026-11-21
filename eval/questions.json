@@ -62,10 +62,10 @@
     "id": 7,
     "type": "direct",
     "question": "Do you ship to the UK, and who pays customs?",
-    "expectedAnswer": "Yes, 7-14 business days, $29 flat; the buyer pays customs duties and import taxes.",
+    "expectedAnswer": "Yes, the UK is served (7-14 business days, $29 flat); the buyer pays customs duties and import taxes. Required: UK yes and buyer pays; delivery time and price are welcome but not asked.",
     "expectedSlugs": ["international-shipping"],
     "altSlugs": ["faq"],
-    "mustInclude": ["29", "customs|duties|import"],
+    "mustInclude": ["uk|united kingdom", "customs|duties|import", "buyer|you pay|you'll pay|you will pay"],
     "expectFallback": false
   },
   {
