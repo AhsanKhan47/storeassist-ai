@@ -27,7 +27,8 @@ Upwork limits: title 70 characters, description 600 characters, 5 skills.
 **Content blocks, in order:**
 
 1. Images (Ahsan uploads; Upwork's upload can't be automated from here). JPGs ready in
-   `planning/selling/upwork-images/`:
+   `planning/selling/upwork-images/` (retaken 2026-11-21 from the client-ready UI: no demo banner,
+   no developer panel except in `4-under-the-hood.jpg`; replace any copies uploaded before then):
    1. `1-cover-answer-with-sources.jpg` (cover)
    2. `2-website-widget.jpg`
    3. `3-honest-fallback.jpg`

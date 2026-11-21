@@ -103,15 +103,30 @@ shot uses a freshly worded question so it isn't a cached answer.
 
 ## Acceptance criteria
 
-- [ ] No "GitHub", "demo", "fictional", "sample" or "not a real store" text on `/`, `/embed`,
+- [x] No "GitHub", "demo", "fictional", "sample" or "not a real store" text on `/`, `/embed`,
       `/try-widget` or `/demo/` (checked in the built HTML and in the browser)
-- [ ] `/`: no side panel, no Details button, chat centered; phone: no bottom sheet
-- [ ] `/?details=1` and `/#details`: panel, Details button, meta lines and match score back
-- [ ] Widget, streaming, sources, fallback, rate-limit / busy states, widget settings unchanged
-      (the existing widget browser checks, 18 of them, pass)
-- [ ] `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` pass; `pnpm eval --url <live API>` 15/15
-- [ ] 5 images retaken from the live site, WebP + JPG, under ~400 KB each
-- [ ] Docs updated: STATUS, CLAUDE.md, CONTEXT.md decision, Upwork copy if needed
+- [x] `/`: no side panel, no Details button, chat centered; phone: no bottom sheet
+- [x] `/?details=1` and `/#details`: panel, Details button, meta lines and match score back
+- [x] Widget, streaming, sources, fallback, widget settings unchanged (widget checks 17/18; the one
+      failure is the known false framing test, confirmed fine by the cross-origin check). Rate-limit
+      and busy states use the same code paths, untouched
+- [x] `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build` pass; `pnpm eval --url <live API>` 15/15
+- [x] 5 images retaken from the live site, WebP + JPG, under ~400 KB each
+- [x] Docs updated: STATUS, CLAUDE.md, CONTEXT.md decision, Upwork copy, README
+
+## Results (2026-11-21)
+
+- Deployed in `9b618e7` (pushed by Claude at Ahsan's request); live site rebuilt within minutes.
+- Browser checks, local and live: 28/28 (normal view clean and centered, `?details=1` and `#details`
+  bring back panel, meta lines and match scores, phone without sheet, `/embed` never shows developer
+  view, `/try-widget` and `/demo/` clean). Widget checks 17/18 live; the one failure is the known
+  false result of the `setContent` framing test; the cross-origin framing check confirms `/embed`
+  loads and `/` is refused.
+- `pnpm lint`, `pnpm typecheck`, `pnpm build` pass; `pnpm test` 89/89 (2 new); live eval 15/15 + 8/8.
+- Extra: the header narrows to the 740px chat column when the panel is hidden.
+- Images retaken from the live site: WebP 25–126 KB, JPG 53–271 KB, same names and sizes as before;
+  the hero and panel shots are fresh model answers ("Answered by Groq", not saved). README alt text
+  and the panel paragraph updated (points to `?details=1`).
 
 ## Tests
 

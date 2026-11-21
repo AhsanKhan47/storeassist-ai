@@ -14,7 +14,7 @@ one line of code.
 > Tallow & Pine is a fictional clothing store. All policies, prices and contact details are sample
 > data written for this demo.
 
-![Cited answer with source chips, an open excerpt, and the side panel showing the match score and model](.github/assets/answer.webp)
+![Cited answer to "Can I send back something I bought on sale?" with three source chips and the matching policy excerpt open](.github/assets/answer.webp)
 
 ## What it does
 
@@ -48,11 +48,12 @@ Scoring is plain string checks in [`scripts/lib/eval-score.ts`](scripts/lib/eval
 grading itself: the right fact must appear, the right page must be cited, and not-covered questions
 must get the "contact us" reply.
 
-<img src=".github/assets/under-the-hood.webp" alt="Side panel: closest match 0.69 against a 0.67 cutoff, 5 excerpts read, answered by Groq, not a saved answer, 2.1 s" width="320" align="right">
+<img src=".github/assets/under-the-hood.webp" alt="Side panel: closest match 0.69 against a 0.67 cutoff, 5 excerpts read, answered by Groq, not a saved answer, 1.7 s" width="320" align="right">
 
-The **"Under the hood" panel** on the live demo shows the real numbers behind each answer: how close
-the best passage was to the question (and the 0.67 cutoff it had to clear), how many passages were
-read, which model answered, whether the answer came from the cache, and how long it took.
+The **"Under the hood" panel** shows the real numbers behind each answer: how close the best passage
+was to the question (and the 0.67 cutoff it had to clear), how many passages were read, which model
+answered, whether the answer came from the cache, and how long it took. Visitors get a clean chat;
+open the [developer view](https://storeassist-ai.pages.dev/?details=1) (`?details=1`) to see it.
 
 <br clear="right">
 
