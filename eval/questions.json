@@ -65,7 +65,11 @@
     "expectedAnswer": "Yes, the UK is served (7-14 business days, $29 flat); the buyer pays customs duties and import taxes. Required: UK yes and buyer pays; delivery time and price are welcome but not asked.",
     "expectedSlugs": ["international-shipping"],
     "altSlugs": ["faq"],
-    "mustInclude": ["uk|united kingdom", "customs|duties|import", "buyer|you pay|you'll pay|you will pay"],
+    "mustInclude": [
+      "uk|united kingdom",
+      "customs|duties|import",
+      "buyer|you pay|you'll pay|you will pay"
+    ],
     "expectFallback": false
   },
   {

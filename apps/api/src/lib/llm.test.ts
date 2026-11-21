@@ -1,5 +1,11 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { MidStreamError, ProvidersUnavailableError, streamChat, type Provider } from "./llm.ts";
+import {
+  MidStreamError,
+  ProvidersUnavailableError,
+  deltaText,
+  streamChat,
+  type Provider,
+} from "./llm.ts";
 import type { LlmMessage } from "./prompt.ts";
 
 const provider = (name: Provider["name"]): Provider => ({
@@ -134,5 +140,21 @@ describe("streamChat", () => {
     const { provider: used, attempts } = await collect();
     expect(used).toBe("gemini");
     expect(attempts[0]).toMatch(/empty answer/);
+  });
+});
+
+describe("deltaText", () => {
+  it("reads the text of a normal chunk", () => {
+    expect(deltaText({ choices: [{ delta: { content: "Hi" } }] })).toBe("Hi");
+  });
+
+  it("ignores chunks without text or with an unexpected shape", () => {
+    expect(deltaText({ choices: [{ delta: {} }] })).toBeUndefined();
+    expect(deltaText({ choices: [{ delta: { content: null } }] })).toBeUndefined();
+    expect(deltaText({ choices: [{ delta: { content: 42 } }] })).toBeUndefined();
+    expect(deltaText({ choices: [] })).toBeUndefined();
+    expect(deltaText({ choices: "nope" })).toBeUndefined();
+    expect(deltaText(null)).toBeUndefined();
+    expect(deltaText("text")).toBeUndefined();
   });
 });

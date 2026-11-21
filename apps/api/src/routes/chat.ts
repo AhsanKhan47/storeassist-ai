@@ -20,6 +20,7 @@ import {
   QUERY_EMBED_TIMEOUT_MS,
   TOP_K,
 } from "../lib/config.ts";
+import { createDeltaBatcher } from "../lib/batch.ts";
 import { embedTexts } from "../lib/embed.ts";
 import {
   MidStreamError,
@@ -204,6 +205,10 @@ chat.post(
     return streamSSE(c, async (stream) => {
       await send(stream, { event: "meta", data: { sources, isFallback: false, cached: false } });
       let answer = "";
+      // Tokens are sent to the browser in small batches, not one event per token (CPU time).
+      const batcher = createDeltaBatcher((text) =>
+        send(stream, { event: "delta", data: { text } }),
+      );
       try {
         const { provider, attempts } = await streamChat(
           providersFromEnv(env),
@@ -211,13 +216,16 @@ chat.post(
           async (piece) => {
             const text = normalizeCitations(piece);
             answer += text;
-            await send(stream, { event: "delta", data: { text } });
+            await batcher.push(text);
           },
         );
+        await batcher.flush();
         await send(stream, { event: "done", data: { provider } });
         saveToCache({ answer, sources, isFallback: false, provider });
         log("answer", { provider, topScore, attempts, chars: answer.length });
       } catch (err) {
+        // Whatever was already written reaches the browser before the error event.
+        await batcher.flush().catch(() => undefined);
         if (err instanceof ProvidersUnavailableError) {
           log("busy", { stage: "llm", topScore, attempts: err.attempts });
           await send(stream, { event: "error", data: { code: "busy", message: BUSY_MESSAGE } });

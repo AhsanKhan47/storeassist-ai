@@ -56,8 +56,10 @@ Last updated: 2026-11-21 (Phase 7 complete; CPU fix next)
 
 ## In progress
 
-- **CPU fix** (Ahsan asked to proceed, 2026-11-21): trim the per-token streaming loop so model answers
-  stay near the free plan's 10 ms CPU guideline. Plan: `plans/fix-cpu.md`.
+- **CPU fix** (Ahsan asked to proceed, 2026-11-21): deltas sent in batches and a cheap per-token check
+  instead of Zod. Deployed: model-answer CPU median **24 → 11 ms** (range 8–17 ms), 11/11 answerable
+  questions pass live; full live eval 15/15. At the gate: waiting for Ahsan's "approved", then commit.
+  Plan and results: `plans/fix-cpu.md`.
 
 ## Next
 

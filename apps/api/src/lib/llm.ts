@@ -2,7 +2,6 @@
 // chat-completions API, so one streaming client covers Groq, Gemini and Cerebras.
 // Order: Groq -> Gemini -> Cerebras (only if its key is set). A provider is skipped only when it
 // fails before the first token; once text has been sent, a failure ends the answer with an error.
-import { z } from "zod";
 import type { ProviderName } from "@storeassist/shared";
 import type { Env } from "../env.ts";
 import {
@@ -71,11 +70,21 @@ export class ProvidersUnavailableError extends Error {
 /** A provider failed after part of the answer was already sent. */
 export class MidStreamError extends Error {}
 
-const ChunkSchema = z.object({
-  choices: z
-    .array(z.object({ delta: z.object({ content: z.string().nullish() }).partial() }))
-    .optional(),
-});
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null;
+
+/**
+ * The text in one streamed chunk (`choices[0].delta.content`), or undefined if the chunk has none or
+ * is not shaped as expected. Runs for every token, so it is a plain type guard rather than a Zod
+ * schema: same validation outcome, far less CPU per token.
+ */
+export function deltaText(json: unknown): string | undefined {
+  if (!isRecord(json) || !Array.isArray(json.choices)) return undefined;
+  const first: unknown = json.choices[0];
+  if (!isRecord(first) || !isRecord(first.delta)) return undefined;
+  const content = first.delta.content;
+  return typeof content === "string" ? content : undefined;
+}
 
 function sanitize(text: string): string {
   return text.replace(/\s+/g, " ").slice(0, 200);
@@ -104,8 +113,7 @@ async function* readDeltas(body: ReadableStream<Uint8Array>): AsyncGenerator<str
         } catch {
           continue; // ignore malformed keep-alive lines
         }
-        const chunk = ChunkSchema.safeParse(json);
-        const text = chunk.success ? chunk.data.choices?.[0]?.delta?.content : undefined;
+        const text = deltaText(json);
         if (text) yield text;
       }
     }
