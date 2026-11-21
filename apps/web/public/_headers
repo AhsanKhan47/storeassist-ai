@@ -1,0 +1,10 @@
+# Security headers for the static site on Cloudflare Pages (this file is copied into apps/web/out).
+# The only network destination allowed is the chat API. Next's static export uses inline scripts
+# and the UI uses inline styles, so script-src and style-src include 'unsafe-inline'; the page shows
+# no user-supplied HTML. img-src allows data: for the background grain texture.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://storeassist-api.ahsankhan47.workers.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()

@@ -1,11 +1,15 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { secureHeaders } from "hono/secure-headers";
 import type { ErrorResponse } from "@storeassist/shared";
 import type { Bindings } from "./env.ts";
 import { chat } from "./routes/chat.ts";
 import { health } from "./routes/health.ts";
 
 const app = new Hono<{ Bindings: Bindings }>();
+
+// Standard security headers on every response (nosniff, no framing, strict referrer, ...).
+app.use("*", secureHeaders());
 
 // CORS: only the frontend origin gets an Access-Control-Allow-Origin header.
 app.use("/api/*", (c, next) =>

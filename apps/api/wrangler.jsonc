@@ -3,6 +3,16 @@
   "name": "storeassist-api",
   "main": "src/index.ts",
   "compatibility_date": "2026-10-01",
+  // Plain (non-secret) settings. Locally, apps/api/.dev.vars overrides these.
+  // Secrets (DATABASE_URL, API keys, Upstash) are set with `wrangler secret put`, never here.
+  "vars": {
+    // The live website, the only origin allowed to call the API (CORS).
+    "ALLOWED_ORIGIN": "https://storeassist-ai.pages.dev",
+  },
+  // Workers Logs: request logs with errors and CPU time (free plan: 200K events/day).
+  "observability": {
+    "enabled": true,
+  },
   "dev": {
     "port": 8787,
   },

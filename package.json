@@ -19,7 +19,8 @@
     "search": "node --env-file-if-exists=apps/api/.dev.vars scripts/search.ts",
     "chat": "node scripts/chat.ts",
     "eval": "node --env-file-if-exists=apps/api/.dev.vars scripts/eval.ts",
-    "test": "vitest run"
+    "test": "vitest run",
+    "deploy:api": "pnpm --filter @storeassist/api exec wrangler deploy"
   },
   "devDependencies": {
     "eslint": "^10.14.0",

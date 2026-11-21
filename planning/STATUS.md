@@ -49,7 +49,13 @@ Last updated: 2026-11-11 (Phase 6 complete)
 
 ## In progress
 
-- Nothing in progress. Phase 7 (deployment) needs a plan in `plans/phase-7.md` and Ahsan's approval.
+- **Phase 7 — Deployment** (plan approved 2026-11-11). API live at
+  `https://storeassist-api.ahsankhan47.workers.dev` (5 secrets set, CORS locked to
+  `https://storeassist-ai.pages.dev`). Pages project `storeassist-ai` created from GitHub. Code
+  (security headers, Workers Logs, `pnpm deploy:api`) committed and tagged `phase-7` mid-phase so Pages
+  can build it. Next: Ahsan pushes; Claude checks the live site and runs the live eval; gate.
+  - First Pages builds published nothing (build command not saved), then baked in `localhost:8787`
+    (`NEXT_PUBLIC_API_URL` missing at build time). Both are dashboard settings, now set.
 
 ## Next
 
@@ -101,5 +107,5 @@ Last updated: 2026-11-11 (Phase 6 complete)
 | 4 Chat API | Done | `phase-4` | Groq model now gpt-oss-120b |
 | 5 Chat UI | Done | `phase-5` | Premium Apple-style UI |
 | 6 Quality + evals | Done | `phase-6` | 15/15 eval, 42 unit tests |
-| 7 Deployment | Not started | | |
+| 7 Deployment | In progress | `phase-7` | API live; site live checks pending |
 | 8 Portfolio + selling | Not started | | |
