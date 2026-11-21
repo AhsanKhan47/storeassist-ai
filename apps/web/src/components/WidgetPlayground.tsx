@@ -4,7 +4,7 @@
 // whenever a setting changes, so the corner button always matches the snippet shown.
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { STORE_NAME } from "@storeassist/shared";
+import { useDetailsMode } from "../lib/details-mode.ts";
 import { CopyIcon } from "./icons.tsx";
 
 declare global {
@@ -42,6 +42,7 @@ export function WidgetPlayground() {
   const [position, setPosition] = useState<Position>("right");
   const [label, setLabel] = useState(DEFAULT_LABEL);
   const [copied, setCopied] = useState(false);
+  const details = useDetailsMode();
 
   // Load the widget with the current settings; reload it (debounced) when they change.
   useEffect(() => {
@@ -83,10 +84,6 @@ export function WidgetPlayground() {
         <span className="ambient__grain" />
       </div>
 
-      <div className="notice">
-        Demo with fictional sample data. {STORE_NAME} is not a real store.
-      </div>
-
       <header className="topbar">
         <div className="topbar__inner">
           <div className="brand">
@@ -95,7 +92,7 @@ export function WidgetPlayground() {
             </span>
             <div className="brand__text">
               <h1 className="brand__name">Website widget</h1>
-              <p className="brand__sub">Test the embed flow</p>
+              <p className="brand__sub">Add it to your website</p>
             </div>
           </div>
           <Link className="btn btn--glass" href="/">
@@ -225,18 +222,20 @@ export function WidgetPlayground() {
             <div className="tw-links">
               <a className="try" href="/demo/">
                 <span className="try__text">
-                  <span className="try__q">Demo store page</span>
-                  <span className="try__kind">A fake product page with the snippet installed</span>
+                  <span className="try__q">Product page</span>
+                  <span className="try__kind">A store product page with the chat installed</span>
                 </span>
               </a>
-              <a className="try" href="/demo/hostile.html">
-                <span className="try__text">
-                  <span className="try__q">Hostile CSS test</span>
-                  <span className="try__kind">
-                    A page whose styles reset and hide everything; the widget still works
+              {details ? (
+                <a className="try" href="/demo/hostile.html">
+                  <span className="try__text">
+                    <span className="try__q">Hostile CSS test</span>
+                    <span className="try__kind">
+                      A page whose styles reset and hide everything; the widget still works
+                    </span>
                   </span>
-                </span>
-              </a>
+                </a>
+              ) : null}
             </div>
           </section>
         </div>

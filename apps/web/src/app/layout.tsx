@@ -10,7 +10,7 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "sw
 export const metadata: Metadata = {
   title: "Tallow & Pine Help",
   description:
-    "Support chat that answers only from the store's policies and shows its sources. A demo with fictional sample data.",
+    "Support chat that answers from Tallow & Pine's store policies and shows its sources.",
 };
 
 export const viewport: Viewport = {

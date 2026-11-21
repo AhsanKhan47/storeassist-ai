@@ -27,6 +27,7 @@ things are the way they are, so a new session doesn't re-argue them.
 | Cloudflare Pages for hosting | Free tier allows commercial use; Vercel Hobby forbids it; GitHub Pages disallows business sites |
 | Neon "coding agent" setup prompt was skipped | It assumes existing app code and writes `.env.local`; we wire Neon manually with the serverless driver |
 | Build in 8 gated phases | Ahsan wants to approve phase by phase |
+| No "demo / sample data" wording or GitHub links in the UI; developer panel only with `?details=1` (2026-11-21) | Ahsan wants the live app and widget to look like a real product in screenshots and client demos. The README, Fiverr and Upwork copy still say it is a sample store, and the contact details cannot reach anyone (555 phone number, `.example` email) |
 
 ## Open items / reminders
 

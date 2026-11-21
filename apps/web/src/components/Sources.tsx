@@ -2,6 +2,7 @@
 
 import { useState, type CSSProperties } from "react";
 import type { Source } from "@storeassist/shared";
+import { useDetails } from "../lib/details-mode.ts";
 
 /**
  * Excerpts are raw Markdown from the policy pages. Turn tables into "cell: cell" lines and list
@@ -38,6 +39,7 @@ interface SourcesProps {
 
 /** Source chips under an answer, plus an animated excerpt panel for whichever one is open. */
 export function Sources({ idPrefix, sources, openIndex, onToggle }: SourcesProps) {
+  const details = useDetails();
   const open = sources.find((s) => s.index === openIndex) ?? null;
 
   // Keep showing the last opened excerpt while the panel animates closed.
@@ -81,7 +83,9 @@ export function Sources({ idPrefix, sources, openIndex, onToggle }: SourcesProps
               <p className="excerpt__title">{shown.title}</p>
               {shown.heading ? <p className="excerpt__heading">{shown.heading}</p> : null}
               <p className="excerpt__body">{formatExcerpt(shown.excerpt)}</p>
-              <p className="excerpt__score">Match score {shown.score.toFixed(2)}</p>
+              {details ? (
+                <p className="excerpt__score">Match score {shown.score.toFixed(2)}</p>
+              ) : null}
             </div>
           </div>
         </div>

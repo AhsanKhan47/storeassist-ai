@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import type { ProviderName, Source } from "@storeassist/shared";
+import { useDetails } from "../lib/details-mode.ts";
 import { useSmoothText } from "../lib/motion.ts";
 import type { Turn } from "../lib/turns.ts";
 import { AlertIcon, InfoIcon, RetryIcon } from "./icons.tsx";
@@ -80,6 +81,7 @@ interface AssistantMessageProps {
 }
 
 export function AssistantMessage({ turn, onRetry, retryDisabled }: AssistantMessageProps) {
+  const details = useDetails();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const toggle = (index: number) => setOpenIndex((current) => (current === index ? null : index));
 
@@ -102,7 +104,8 @@ export function AssistantMessage({ turn, onRetry, retryDisabled }: AssistantMess
       : citedSources;
 
   const tone = failed ? "bubble--error" : turn.isFallback ? "bubble--note" : "bubble--bot";
-  const meta = finished ? metaLine(turn) : null;
+  // Model, cache and timing facts are for the developer view only.
+  const meta = finished && details ? metaLine(turn) : null;
 
   return (
     <div className="turn turn--bot">

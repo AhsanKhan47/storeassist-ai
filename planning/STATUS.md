@@ -1,6 +1,6 @@
 # STATUS
 
-Last updated: 2026-11-21 (Phase 8 built, at the gate)
+Last updated: 2026-11-21 (client-ready UI deployed, at the gate)
 
 ## Done
 
@@ -63,18 +63,22 @@ Last updated: 2026-11-21 (Phase 8 built, at the gate)
   Copy). Friendly instant replies to greetings/thanks (no search, no model call). All checks pass live;
   live eval 15/15 + 8/8 extra (`plans/widget.md`)
 
+- **Phase 8, Claude's part** (tag `phase-8`): `README.md` (renders on GitHub; repo now public), 5 live
+  screenshots in `.github/assets/`, Loom script, Fiverr gig and Upwork copy in `planning/selling/`
+  (`plans/phase-8.md`)
+
 ## In progress
 
-- **Phase 8 — Portfolio and selling** (approved 2026-11-21): Claude's part built and at the gate:
-  `README.md`, 5 live screenshots in `.github/assets/`, Loom script, Fiverr gig and Upwork copy in
-  `planning/selling/` (`plans/phase-8.md`).
+- **Client-ready UI** (approved 2026-11-21, at the gate): no GitHub links or demo wording in the UI;
+  side panel, Details button, model/timing lines and match scores only with `?details=1` / `#details`;
+  header narrows to the chat when the panel is hidden. Deployed; screenshots retaken (WebP in
+  `.github/assets/`, JPG in `planning/selling/upwork-images/`) (`plans/client-ready-ui.md`).
 
 ## Next
 
-- After "approved": commit + tag `phase-8`; Ahsan pushes; Claude checks the README on GitHub (images,
-  Mermaid diagram, links).
-- Ahsan: record the Loom, set prices, publish the Fiverr gig and Upwork portfolio entry, then send the
-  links so they go into the README (hidden comments mark the spots).
+- Ahsan: record the Loom, set prices, publish the Fiverr gig, finish the Upwork entry (upload the new
+  images), then send the links so they go into the README (hidden comments mark the spots). To-do doc:
+  https://claude.ai/artifact/84tYvczFa8P7Te2V8KH6eZ (also lists features Claude can build next).
 - Local dev: run a single `pnpm dev`. Two `wrangler dev` copies in this folder share `.wrangler` state
   and both freeze on port 8787 (happened on 2026-11-11).
 
@@ -122,4 +126,4 @@ Last updated: 2026-11-21 (Phase 8 built, at the gate)
 | 5 Chat UI | Done | `phase-5` | Premium Apple-style UI |
 | 6 Quality + evals | Done | `phase-6` | 15/15 eval, 42 unit tests |
 | 7 Deployment | Done | `phase-7` | Live site + API; live eval 15/15 |
-| 8 Portfolio + selling | Not started | | |
+| 8 Portfolio + selling | Claude's part done; Ahsan publishing | `phase-8` | README, screenshots, gig copy |

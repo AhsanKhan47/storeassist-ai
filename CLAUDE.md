@@ -7,7 +7,9 @@
 RAG support chatbot for a fictional US clothing store, **Tallow & Pine**. It answers customer
 questions only from the store's policy documents (`docs/*.md`), cites the source for each answer, and
 replies "not in our policies, contact us" instead of guessing. It is a portfolio demo for Ahsan's
-Fiverr/Upwork AI-integration services. All content is sample data and the UI says so.
+Fiverr/Upwork AI-integration services. All content is sample data; the README says so, but the UI
+does not (Ahsan's decision 2026-11-21, so screenshots look like a real product). Developer details
+(side panel, model/timing lines, match scores) show only with `?details=1` or `#details`.
 Everything runs on free tiers: **no credit card, no subscriptions, ever.**
 
 ## Stack (locked; see `planning/CONTEXT.md` for why)

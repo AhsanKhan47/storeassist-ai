@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { STORE_NAME, type ChatMessage } from "@storeassist/shared";
 import { ChatFailure, streamAnswer } from "../lib/chat-client.ts";
+import { DetailsContext, useDetailsMode } from "../lib/details-mode.ts";
 import { buildHistory } from "../lib/history.ts";
-import { GITHUB_URL } from "../lib/questions.ts";
 import { exchangesOf, newTurn, type Turn } from "../lib/turns.ts";
 import { Composer } from "./Composer.tsx";
 import { CloseIcon, ComposeIcon, PanelIcon } from "./icons.tsx";
@@ -29,6 +29,10 @@ export type ChatVariant = "page" | "embed";
 
 export function Chat({ variant = "page" }: { variant?: ChatVariant }) {
   const embed = variant === "embed";
+  // Developer view (?details=1 or #details): side panel, model and timing lines, match scores.
+  // Never inside the widget.
+  const detailsRequested = useDetailsMode();
+  const details = detailsRequested && !embed;
   const [turns, setTurns] = useState<Turn[]>([]);
   const [busy, setBusy] = useState(false);
   const [hoodOpen, setHoodOpen] = useState(false);
@@ -258,12 +262,6 @@ export function Chat({ variant = "page" }: { variant?: ChatVariant }) {
           {thread}
           <div className="composer-wrap">
             <Composer onSend={send} busy={busy} autoFocus />
-            <p className="embed-foot">
-              Demo with fictional sample data.{" "}
-              <a href={GITHUB_URL} target="_blank" rel="noreferrer">
-                How it works
-              </a>
-            </p>
           </div>
         </main>
       </div>
@@ -271,83 +269,90 @@ export function Chat({ variant = "page" }: { variant?: ChatVariant }) {
   }
 
   return (
-    <div className="app">
-      {ambient}
+    <DetailsContext.Provider value={details}>
+      <div className="app">
+        {ambient}
 
-      <div className="notice">
-        Demo with fictional sample data. {STORE_NAME} is not a real store.{" "}
-        <Link href="/try-widget">Try it as a website widget</Link> or{" "}
-        <a href={GITHUB_URL} target="_blank" rel="noreferrer">
-          view the code on GitHub
-        </a>
-      </div>
+        {details ? (
+          <div className="notice">
+            Developer view: match scores, models and timings are shown.{" "}
+            <Link href="/try-widget?details=1">Website widget</Link>
+          </div>
+        ) : null}
 
-      <header className="topbar">
-        <div className="topbar__inner">
-          <div className="brand">
-            <span className="brand__tile" aria-hidden="true">
-              TP
-            </span>
-            <div className="brand__text">
-              <h1 className="brand__name">
-                {STORE_NAME}
-                <span className="brand__help"> Help</span>
-              </h1>
-              <p className="brand__sub">Answers from our store policies</p>
+        <header className="topbar">
+          <div className="topbar__inner">
+            <div className="brand">
+              <span className="brand__tile" aria-hidden="true">
+                TP
+              </span>
+              <div className="brand__text">
+                <h1 className="brand__name">
+                  {STORE_NAME}
+                  <span className="brand__help"> Help</span>
+                </h1>
+                <p className="brand__sub">Answers from our store policies</p>
+              </div>
+            </div>
+            <div className="topbar__actions">
+              {details ? (
+                <button
+                  type="button"
+                  className="btn btn--glass topbar__info"
+                  aria-expanded={hoodOpen}
+                  aria-controls={HOOD_ID}
+                  onClick={() => setHoodOpen((open) => !open)}
+                  aria-label="Details"
+                >
+                  <PanelIcon className="btn__icon" />
+                  <span className="btn__label">Details</span>
+                </button>
+              ) : null}
+              <button
+                type="button"
+                className="btn btn--glass"
+                disabled={turns.length === 0}
+                onClick={newChat}
+                aria-label="New chat"
+              >
+                <ComposeIcon className="btn__icon" />
+                <span className="btn__label">New chat</span>
+              </button>
             </div>
           </div>
-          <div className="topbar__actions">
-            <button
-              type="button"
-              className="btn btn--glass topbar__info"
-              aria-expanded={hoodOpen}
-              aria-controls={HOOD_ID}
-              onClick={() => setHoodOpen((open) => !open)}
-              aria-label="Details"
-            >
-              <PanelIcon className="btn__icon" />
-              <span className="btn__label">Details</span>
-            </button>
-            <button
-              type="button"
-              className="btn btn--glass"
-              disabled={turns.length === 0}
-              onClick={newChat}
-              aria-label="New chat"
-            >
-              <ComposeIcon className="btn__icon" />
-              <span className="btn__label">New chat</span>
-            </button>
-          </div>
+        </header>
+
+        <div className={details ? "layout" : "layout layout--solo"}>
+          <main className="chat">
+            {thread}
+            <div className="composer-wrap">
+              <Composer onSend={send} busy={busy} />
+              <p className="composer-hint">
+                Answers come only from the store&rsquo;s policies, with a source for each.
+              </p>
+            </div>
+          </main>
+
+          {details ? (
+            <>
+              <div
+                className={hoodOpen ? "scrim scrim--open" : "scrim"}
+                aria-hidden="true"
+                onClick={() => setHoodOpen(false)}
+              />
+              <UnderTheHood
+                id={HOOD_ID}
+                open={hoodOpen}
+                last={last}
+                stats={stats}
+                busy={busy}
+                onAsk={send}
+                onClose={() => setHoodOpen(false)}
+              />
+            </>
+          ) : null}
         </div>
-      </header>
-
-      <div className="layout">
-        <main className="chat">
-          {thread}
-          <div className="composer-wrap">
-            <Composer onSend={send} busy={busy} />
-            <p className="composer-hint">
-              Answers come only from the store&rsquo;s policies, with a source for each.
-            </p>
-          </div>
-        </main>
-
-        <div
-          className={hoodOpen ? "scrim scrim--open" : "scrim"}
-          aria-hidden="true"
-          onClick={() => setHoodOpen(false)}
-        />
-        <UnderTheHood
-          id={HOOD_ID}
-          open={hoodOpen}
-          last={last}
-          stats={stats}
-          busy={busy}
-          onAsk={send}
-          onClose={() => setHoodOpen(false)}
-        />
       </div>
-    </div>
+    </DetailsContext.Provider>
   );
 }

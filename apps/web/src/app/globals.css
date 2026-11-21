@@ -245,8 +245,13 @@ a:hover {
   top: 12px;
   z-index: 20;
   max-width: 1140px;
-  margin: 4px auto 0;
+  margin: 14px auto 0;
   padding: 0 16px;
+}
+
+/* The developer-view line above the bar already gives it room. */
+.notice + .topbar {
+  margin-top: 4px;
 }
 
 .topbar__inner {
@@ -334,6 +339,16 @@ a:hover {
   max-width: 1140px;
   margin: 0 auto;
   padding: 0 24px;
+}
+
+/* Normal visitors: no side panel, the chat column sits centered at full width. */
+.layout--solo {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Without the panel, the header lines up with the 740px chat column. */
+.app:has(.layout--solo) .topbar {
+  max-width: 772px;
 }
 
 /* ---------- Buttons ---------- */
@@ -1713,13 +1728,6 @@ html:has(.app--embed) {
 
 .app--embed .composer-wrap {
   padding: 12px 0 max(10px, env(safe-area-inset-bottom));
-}
-
-.embed-foot {
-  margin: 8px 0 0;
-  text-align: center;
-  font-size: 11.5px;
-  color: var(--ink-3);
 }
 
 /* ---------- Widget test page (/try-widget) ---------- */
