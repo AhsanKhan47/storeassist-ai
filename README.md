@@ -159,8 +159,8 @@ The same build works with any store's documents: your returns, shipping, sizing 
 Possible add-ons: WhatsApp, answers in several languages, live order lookup, and an admin page for
 editing documents.
 
-Want this for your store? You can hire me on [Upwork](https://www.upwork.com/freelancers/~01af66a3d2507848e1).
-<!-- HIRE: add the Fiverr gig link here once it is live. -->
+Want this for your store? You can hire me on [Upwork](https://www.upwork.com/freelancers/~01af66a3d2507848e1) or
+[Fiverr](https://www.fiverr.com/s/K3wG9Xk).
 
 Built by [Ahsan Raza Khan](https://github.com/AhsanKhan47), full stack developer (React, Node.js,
 Python) building AI features into web apps.

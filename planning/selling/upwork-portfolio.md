@@ -26,7 +26,7 @@ Upwork limits: title 70 characters, description 600 characters, 5 skills.
 
 **Content blocks, in order:**
 
-1. Images (Ahsan uploads; Upwork's upload can't be automated from here). JPGs ready in
+1. Images (uploaded on Upwork 2026-11-22, client-ready versions). JPGs ready in
    `planning/selling/upwork-images/` (retaken 2026-11-21 from the client-ready UI: no demo banner,
    no developer panel except in `4-under-the-hood.jpg`; replace any copies uploaded before then):
    1. `1-cover-answer-with-sources.jpg` (cover)
@@ -50,8 +50,8 @@ Upwork limits: title 70 characters, description 600 characters, 5 skills.
 > - Around 11 ms of server time per answer, running entirely on free tiers
 >
 > Try it:
-> Live demo: https://storeassist-ai.pages.dev
-> Widget on a sample product page: https://storeassist-ai.pages.dev/demo/
+> Chat: https://storeassist-ai.pages.dev
+> Website widget on a product page: https://storeassist-ai.pages.dev/demo/
 
 4. Later: Loom video (after recording), and the GitHub link once the repo is confirmed public:
    https://github.com/AhsanKhan47/storeassist-ai
