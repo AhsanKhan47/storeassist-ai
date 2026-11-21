@@ -76,7 +76,7 @@ host site. Try the settings live at [/try-widget](https://storeassist-ai.pages.d
 ## How it works
 
 ```mermaid
-flowchart TD
+flowchart LR
   V[Visitor] --> W["Website or widget<br/>Next.js on Cloudflare Pages"]
   W -- question --> A["Chat API<br/>Hono on Cloudflare Workers"]
   A --> RL{"Rate limit<br/>10/min per IP"}
@@ -158,7 +158,8 @@ The same build works with any store's documents: your returns, shipping, sizing 
 Possible add-ons: WhatsApp, answers in several languages, live order lookup, and an admin page for
 editing documents.
 
-<!-- HIRE: add the Fiverr gig and Upwork profile links here once they are live. -->
+Want this for your store? You can hire me on [Upwork](https://www.upwork.com/freelancers/~01af66a3d2507848e1).
+<!-- HIRE: add the Fiverr gig link here once it is live. -->
 
 Built by [Ahsan Raza Khan](https://github.com/AhsanKhan47), full stack developer (React, Node.js,
 Python) building AI features into web apps.
